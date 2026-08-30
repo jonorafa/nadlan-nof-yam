@@ -60,8 +60,8 @@
             badge: 'בלעדיות',
             image: 'images/bien2/duplex-cover.jpg',
             link: 'property-duplex.html',
-            // Approximate: Tel Aviv, near the sea / Green Line light rail
-            coords: [32.1050, 34.7735]
+            // Ramat Aviv HaChadasha (corrected — previous coords landed in the sea)
+            coords: [32.1158, 34.7938]
         },
         {
             title: 'דירת 3.5 חדרים ענקית',
