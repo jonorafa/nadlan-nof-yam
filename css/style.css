@@ -7,7 +7,8 @@
     --color-bg-alt: #FFFFFF;
     --color-text: #2D3748;
     --color-text-light: #718096;
-    
+    --color-error: #B3261E;
+
     --font-heading: 'Frank Ruhl Libre', serif;
     --font-body: 'Assistant', sans-serif;
     
@@ -795,6 +796,40 @@ img {
 
 .calc-group input:focus {
     border-color: var(--color-secondary);
+}
+
+/* Hide native number-input spin arrows across the site */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-ratio-indicator {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 8px;
+    transition: color 0.2s;
+}
+
+.calc-ratio-indicator.low {
+    color: var(--color-error);
+    font-weight: 600;
+}
+
+.calc-warning-message {
+    display: none;
+    font-size: 0.85rem;
+    color: var(--color-error);
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+.calc-warning-message.visible {
+    display: block;
 }
 
 .calc-blob {

@@ -79,13 +79,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const yearsInput = document.getElementById('calc-years');
     const monthlyResult = document.getElementById('calc-monthly');
 
+    const MIN_DOWNPAYMENT_RATIO = 0.25;
+    let ratioIndicator = null;
+    let warningMessage = null;
+
+    if (downpaymentInput) {
+        ratioIndicator = document.createElement('div');
+        ratioIndicator.className = 'calc-ratio-indicator';
+        ratioIndicator.id = 'calc-ratio-indicator';
+
+        warningMessage = document.createElement('div');
+        warningMessage.className = 'calc-warning-message';
+        warningMessage.id = 'calc-warning-message';
+        warningMessage.textContent = 'רוב הבנקים דורשים הון עצמי של 25% לפחות';
+
+        downpaymentInput.insertAdjacentElement('afterend', warningMessage);
+        downpaymentInput.insertAdjacentElement('afterend', ratioIndicator);
+    }
+
     function calculateMortgage() {
         if (!priceInput) return;
-        
+
         const price = parseFloat(priceInput.value) || 0;
         const downpayment = parseFloat(downpaymentInput.value) || 0;
         const interestRate = parseFloat(interestInput.value) || 0;
         const years = parseFloat(yearsInput.value) || 0;
+
+        const ratio = price > 0 ? downpayment / price : 0;
+        const belowMinRatio = price > 0 && ratio < MIN_DOWNPAYMENT_RATIO;
+
+        if (ratioIndicator) {
+            ratioIndicator.textContent = price > 0 ? Math.round(ratio * 100) + '% מהמחיר' : '';
+            ratioIndicator.classList.toggle('low', belowMinRatio);
+        }
+        if (warningMessage) {
+            warningMessage.classList.toggle('visible', belowMinRatio);
+        }
+
+        if (belowMinRatio) {
+            monthlyResult.textContent = '—';
+            return;
+        }
 
         const principal = price - downpayment;
 
@@ -97,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const r = (interestRate / 100) / 12;
         const n = years * 12;
         const monthlyPayment = principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-        
+
         monthlyResult.textContent = '₪ ' + Math.round(monthlyPayment).toLocaleString('he-IL');
     }
 
