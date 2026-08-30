@@ -2562,6 +2562,11 @@ html[dir="rtl"] .carousel-counter {
     flex-shrink: 0;
 }
 
+.menu-link-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
 .menu-drawer-badge {
     margin-right: auto;
     background: var(--color-secondary);
