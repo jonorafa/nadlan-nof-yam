@@ -22,17 +22,6 @@
     // -----------------------------------------------------------------
     const properties = [
         {
-            title: 'קו ראשון לים | בניין בוטיק',
-            location: 'רמת אביב',
-            price: '₪ 5,600,000',
-            status: 'sale',
-            badge: 'בלעדיות',
-            image: 'images/seaview/seaview-cover.jpg',
-            link: 'property-seaview.html',
-            // First line to the sea, Ramat Aviv (Nofei Yam area)
-            coords: [32.1150, 34.7870]
-        },
-        {
             title: 'פנטהאוז חדש לגמרי',
             location: 'רמת אביב גימל',
             price: '₪ 13,500,000',

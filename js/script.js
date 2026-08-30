@@ -282,7 +282,6 @@ function setSlide(n) {
 
 // ===== PROPERTIES DATA (for wishlist modal) =====
 const PROPERTIES_DATA = [
-    { id: 'seaview',   title: 'קו ראשון לים | בניין בוטיק',              titleEn: 'First Line to the Sea | Boutique Building', location: 'רמת אביב',          locationEn: 'Ramat Aviv',           price: '₪ 5,600,000',      image: 'images/seaview/seaview-sale-cover.jpg', link: 'property-seaview.html',   linkEn: 'en-property-seaview.html' },
     { id: 'einstein',  title: 'דירת 5 חדרים בבלעדיות',                    titleEn: '5-Room Apartment (Exclusive)',               location: 'שכונת נופי ים',      locationEn: 'Nofei Yam',            price: '₪ 6,300,000',      image: 'images/einstein/einstein-cover.jpg',    link: 'property-einstein.html' },
     { id: 'duplex',    title: 'בלעדיות חדשה | דופלקס פנטהאוז נדיר',       titleEn: 'New Exclusive | Rare Duplex Penthouse',      location: 'תל אביב, בקרבת הים', locationEn: 'Tel Aviv, near the sea', price: '₪ 11,500,000',   image: 'images/bien2/duplex-cover.jpg',         link: 'property-duplex.html' },
     { id: 'sheket',    title: 'דירת 3.5 חדרים ענקית',                     titleEn: 'Huge 3.5-Room Apartment',                    location: 'סמוך לשדרת איינשטיין', locationEn: 'Near Einstein St.',  price: '₪ 4,500,000',      image: 'images/bien3/sheket-cover.jpg',         link: 'property-sheket.html' },

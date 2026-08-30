@@ -1191,7 +1191,7 @@ html[dir="rtl"] .carousel-arrow svg {
 
 .carousel-counter {
     position: absolute;
-    bottom: 20px; 
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.7);
@@ -1203,6 +1203,8 @@ html[dir="rtl"] .carousel-arrow svg {
     color: #333;
     z-index: 10;
     border-radius: 4px;
+    direction: ltr;
+    unicode-bidi: isolate;
 }
 html[dir="rtl"] .carousel-counter {
     transform: translateX(50%);
