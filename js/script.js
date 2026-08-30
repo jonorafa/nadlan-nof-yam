@@ -142,6 +142,18 @@ document.addEventListener("DOMContentLoaded", () => {
         calculateMortgage();
     }
 
+    // --- Header WhatsApp icon: pre-fill message with this property's name ---
+    const headerWhatsappLink = document.getElementById('headerWhatsappLink');
+    const propertyTitleEl = document.querySelector('.property-page-title');
+    if (headerWhatsappLink && propertyTitleEl) {
+        const lang = (document.documentElement.lang || 'he').toLowerCase();
+        const propertyName = propertyTitleEl.textContent.trim();
+        const message = lang.startsWith('en')
+            ? `Hi, I'm interested in the property: ${propertyName}`
+            : `שלום, אני מתעניין/ת בנכס ${propertyName}`;
+        headerWhatsappLink.href = headerWhatsappLink.href.split('?')[0] + '?text=' + encodeURIComponent(message);
+    }
+
     // --- Property Share buttons ---
     const shareButtons = document.querySelectorAll('.property-share__btn');
     if (shareButtons.length > 0) {
@@ -304,6 +316,31 @@ function showSlide(n) {
     }
     
     if (currentSlideNum) currentSlideNum.textContent = currentSlideIndex;
+
+    updateSlideBackground(slides[currentSlideIndex - 1]);
+}
+
+// Portrait photos leave empty space beside them in the landscape carousel frame;
+// fill it with a blurred, scaled copy of the same photo instead of plain background.
+function updateSlideBackground(imgEl) {
+    const bg = document.getElementById('carouselSlideBg');
+    if (!bg || !imgEl) return;
+
+    const apply = () => {
+        const isPortrait = imgEl.naturalHeight > imgEl.naturalWidth;
+        if (isPortrait) {
+            bg.style.backgroundImage = `url('${imgEl.currentSrc || imgEl.src}')`;
+            bg.classList.add('visible');
+        } else {
+            bg.classList.remove('visible');
+        }
+    };
+
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+        apply();
+    } else {
+        imgEl.addEventListener('load', apply, { once: true });
+    }
 }
 
 function changeSlide(n) {

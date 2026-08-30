@@ -192,6 +192,33 @@ img {
     color: var(--color-secondary) !important;
 }
 
+.header-contact-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg);
+    transition: var(--transition-smooth);
+}
+
+.header-icon-link svg {
+    width: 19px;
+    height: 19px;
+}
+
+.header.scrolled .header-icon-link {
+    color: var(--color-primary);
+}
+
+.header-icon-link:hover {
+    color: var(--color-secondary) !important;
+}
+
 .header-nav {
     flex: 2;
     display: flex;
@@ -1146,6 +1173,21 @@ input[type="number"]::-webkit-inner-spin-button {
         height: 70vh;
         aspect-ratio: auto;
     }
+}
+
+.carousel-slide-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    transform: scale(1.1); /* avoids visible blurred edges */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.carousel-slide-bg.visible {
+    opacity: 1;
 }
 
 .carousel-images {
