@@ -325,7 +325,6 @@ const PROPERTIES_DATA = [
     { id: 'chefetz',   title: 'ישה חפץ 16',                                titleEn: 'Yisha Chefetz 16',                            location: 'רמת אביב החדשה',    locationEn: 'New Ramat Aviv',       price: '₪ 10,000,000',     image: 'images/chefetz/chefetz-cover.jpg',      link: 'property-chefetz.html' },
     { id: 'yuval',     title: 'יובל נאמן 3',                               titleEn: 'Yuval Neeman 3',                              location: 'רמת אביב',          locationEn: 'Ramat Aviv',           price: '₪ 12,300,000',     image: 'images/yuval/yuval-cover.jpg',          link: 'property-yuval.html' },
     { id: 'lamed',     title: 'דירה חדשה בלמד החדשה',                     titleEn: 'New Apartment in Lamed',                      location: 'שכונת למד, תל אביב', locationEn: 'Lamed, Tel Aviv',     price: '₪ 12,500 / mo',    image: 'images/seaview/seaview-cover.jpg',      link: 'property-lamed.html' },
-    { id: 'reshpon',   title: 'וילה יוקרתית ברשפון | בריכה וג\'קוזי',      titleEn: 'Luxury Villa in Reshpon | Pool & Jacuzzi',    location: 'רשפון',              locationEn: 'Reshpon',              price: '₪ 14,500,000',     image: 'images/reshpon/reshpon-cover.jpg',      link: 'property-reshpon.html' },
 ];
 
 // ===== WISHLIST (localStorage) =====
