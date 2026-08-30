@@ -43,6 +43,39 @@
             coords: [32.1168, 34.7948]
         },
         {
+            title: 'דירת 5 חדרים בבלעדיות',
+            location: 'שכונת נופי ים',
+            price: '₪ 6,300,000',
+            status: 'sale',
+            badge: 'בלעדיות',
+            image: 'images/einstein/einstein-cover.jpg',
+            link: 'property-einstein.html',
+            // Near Einstein St, Ramat Aviv Gimel / Nofei Yam
+            coords: [32.1172, 34.7940]
+        },
+        {
+            title: 'בלעדיות חדשה | דופלקס פנטהאוז נדיר',
+            location: 'תל אביב, בקרבת הים',
+            price: '₪ 11,500,000',
+            status: 'sale',
+            badge: 'בלעדיות',
+            image: 'images/bien2/duplex-cover.jpg',
+            link: 'property-duplex.html',
+            // Approximate: Tel Aviv, near the sea / Green Line light rail
+            coords: [32.1050, 34.7735]
+        },
+        {
+            title: 'דירת 3.5 חדרים ענקית',
+            location: 'סמוך לשדרת איינשטיין',
+            price: '₪ 4,500,000',
+            status: 'sale',
+            badge: 'למכירה',
+            image: 'images/bien3/sheket-cover.jpg',
+            link: 'property-sheket.html',
+            // Near Einstein St, Ramat Aviv Gimel / Nofei Yam
+            coords: [32.1160, 34.7935]
+        },
+        {
             title: 'מיני פנטהאוז בגוש הגדול / נופי ים',
             location: 'רמת אביב החדשה',
             price: '₪ 8,750,000',
