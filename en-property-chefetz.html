@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yasha Chefetz 16 - Nadlan Nof Yam</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .header { background-color: rgba(252, 251, 249, 0.98) !important; border-bottom: 1px solid rgba(0,0,0,0.05); } 
+        .header .header-nav a, .header .lang-switch { color: var(--color-primary) !important; }
+        .header-logo a { color: var(--color-primary) !important; }
+        .header-logo img { filter: none !important; }
+    </style>
+</head>
+<body class="bg-bg">
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="images/site/logo.png" alt="נדל״ן נוף ים">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="en.html#home">Home</a></li>
+                    <li><a href="en.html#sale">Buy</a></li>
+                    <li><a href="en.html#rent">Rent</a></li>
+                    <li><a href="en.html#team">Team</a></li>
+                    <li><a href="en.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-lang">
+            </div>
+        </div>
+    </header>
+
+    <!-- Property Carousel Header (Junot Style) -->
+    <div class="property-carousel-container">
+        <div class="carousel-main" id="mainCarousel">
+            <button class="carousel-arrow prev" aria-label="Previous image" onclick="changeSlide(-1)">
+                <svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+            </button>
+            <div class="carousel-images">
+                <img src="images/chefetz/chefetz-cover.jpg" alt="Chefetz View 1" class="carousel-slide active">
+                <img src="images/chefetz/chefetz-2.jpg" alt="Chefetz View 2" class="carousel-slide">
+                <img src="images/chefetz/chefetz-3.jpg" alt="Chefetz View 3" class="carousel-slide">
+                <img src="images/chefetz/chefetz-4.jpg" alt="Chefetz View 4" class="carousel-slide">
+            </div>
+            <div class="carousel-counter">
+                <span id="currentSlideNum">1</span> / <span id="totalSlideNum">4</span>
+            </div>
+            <button class="carousel-arrow next" aria-label="Next image" onclick="changeSlide(1)">
+                <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            </button>
+        </div>
+        <div class="carousel-thumbnails">
+            <img src="images/chefetz/chefetz-cover.jpg" alt="Thumb 1" class="thumb active" onclick="setSlide(1)">
+            <img src="images/chefetz/chefetz-2.jpg" alt="Thumb 2" class="thumb" onclick="setSlide(2)">
+            <img src="images/chefetz/chefetz-3.jpg" alt="Thumb 3" class="thumb" onclick="setSlide(3)">
+            <img src="images/chefetz/chefetz-4.jpg" alt="Thumb 4" class="thumb" onclick="setSlide(4)">
+        </div>
+    </div>
+
+    <!-- Main Property Content -->
+    <div class="container section-padding">
+        <div class="property-layout">
+            
+            <!-- Main Content (Left in LTR) -->
+            <div class="property-content">
+                <h1 class="property-page-title">Yasha Chefetz 16</h1>
+                <p class="property-page-location">New Ramat Aviv</p>
+                
+                <div class="property-key-features">
+                    <div class="key-feature"><span>4</span> Rooms (orig. 5)</div>
+                    <div class="key-feature"><span>155</span> sqm built</div>
+                    <div class="key-feature"><span>70</span> sqm balcony</div>
+                    <div class="key-feature"><span>6th Floor</span> out of 7</div>
+                </div>
+
+                <div class="property-description" style="margin-bottom: 40px;">
+                    <h2 style="font-family: var(--font-heading); margin-bottom: 20px;">About the Property</h2>
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--color-text-light);">
+                        Stunning apartment at Yasha Chefetz 16. Offering 155 sqm of built space plus a huge 70 sqm balcony.
+                        <br><br>
+                        Located on the 6th floor out of 7, with West and South-West exposures in the rooms. 
+                        The apartment was converted from 5 to 4 rooms, with the option to easily separate the Mamad (safe room) from the master suite.
+                        Features particularly high ceilings (3 meters), 2 separate parking spaces, and a huge attached storage room.
+                    </p>
+                </div>
+
+                <!-- Accordion (Junot Inspired) -->
+                <div class="property-accordion-section">
+                    <h2 style="font-size: 3rem; font-family: var(--font-heading); font-weight: 300; margin-bottom: 30px;">Additional Details</h2>
+                    
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">Property Details <span class="icon" style="font-weight:300; font-size: 2rem;">+</span></button>
+                            <div class="accordion-content">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1"/><path d="M9 3v18" stroke="currentColor" stroke-width="1"/><path d="M15 3v18" stroke="currentColor" stroke-width="1"/><path d="M3 9h18" stroke="currentColor" stroke-width="1"/><path d="M3 15h18" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>155 sqm built</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><path d="M3 12h18" stroke="currentColor" stroke-width="1"/><path d="M4 12v8" stroke="currentColor" stroke-width="1"/><path d="M20 12v8" stroke="currentColor" stroke-width="1"/><path d="M8 12v8" stroke="currentColor" stroke-width="1"/><path d="M12 12v8" stroke="currentColor" stroke-width="1"/><path d="M16 12v8" stroke="currentColor" stroke-width="1"/><path d="M3 16h18" stroke="currentColor" stroke-width="1"/><path d="M3 20h18" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>70 sqm balcony</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><path d="M3 12h18" stroke="currentColor" stroke-width="1"/><path d="M4 12v8" stroke="currentColor" stroke-width="1"/><path d="M20 12v8" stroke="currentColor" stroke-width="1"/><path d="M8 12v8" stroke="currentColor" stroke-width="1"/><path d="M12 12v8" stroke="currentColor" stroke-width="1"/><path d="M16 12v8" stroke="currentColor" stroke-width="1"/><path d="M3 16h18" stroke="currentColor" stroke-width="1"/><path d="M3 20h18" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>4 rooms (orig. 5)</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1"/><path d="M9 16V8h4a3 3 0 0 1 0 6H9" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>2 separate parking</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1"/><path d="M9 3v18" stroke="currentColor" stroke-width="1"/><path d="M15 3v18" stroke="currentColor" stroke-width="1"/><path d="M3 9h18" stroke="currentColor" stroke-width="1"/><path d="M3 15h18" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>Huge storage room</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M12 4l-4 16 4-4 4 4-4-16z" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>Exposure: West, South-West</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><rect x="5" y="3" width="14" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1"/><path d="M12 7v4" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>High ceilings (3m)</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="amenity-icon"><path d="M12 4a3 3 0 0 1 3 3v2H9V7a3 3 0 0 1 3-3z"/><circle cx="7" cy="14" r="1" fill="currentColor"/><circle cx="12" cy="16" r="1" fill="currentColor"/><circle cx="17" cy="14" r="1" fill="currentColor"/><circle cx="9" cy="19" r="1" fill="currentColor"/><circle cx="15" cy="19" r="1" fill="currentColor"/></svg>
+                                        <span>6th floor of 7</span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">Building & Surroundings <span class="icon" style="font-weight:300; font-size: 2rem;">+</span></button>
+                            <div class="accordion-content">
+                                <p>A modern luxury building offering the highest quality of life: full-time guard, fully equipped gym, and a Jumbori (playroom tailored for families). Fast elevators including a Shabbat elevator. Comes with 2 identical parking spaces and a large private storage room.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <button class="accordion-header">Arnona & HOA fees <span class="icon" style="font-weight:300; font-size: 2rem;">+</span></button>
+                            <div class="accordion-content">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1"/><path d="M6 12h.01M18 12h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                                        <span>Arnona:<br>4,000 ₪ / 2 months</span>
+                                    </div>
+                                    <div class="amenity-item">
+                                        <svg viewBox="0 0 24 24" fill="none" class="amenity-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1"/></svg>
+                                        <span>HOA (Vaad Bait):<br>1,500 ₪ / month</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mortgage Calculator Module -->
+                <div class="mortgage-calculator">
+                    <h2 style="font-size: 2.8rem; font-family: var(--font-heading); font-weight: 300; text-align: center; margin-bottom: 5px;">Financial Calculator</h2>
+                    <p style="text-align: center; color: var(--color-text-light); margin-bottom: 50px;">Calculate your exact monthly repayment.</p>
+                    
+                    <div class="calc-grid">
+                        <div class="calc-inputs">
+                            <div class="calc-group">
+                                <label>Property Price (₪)</label>
+                                <input type="number" id="calc-price" value="10000000" readonly>
+                            </div>
+                            <div class="calc-group">
+                                <label>Down Payment (₪)</label>
+                                <input type="number" id="calc-downpayment" value="3500000">
+                            </div>
+                            <div class="calc-group">
+                                <label>Estimated Interest (%)</label>
+                                <input type="number" id="calc-interest" value="4.5" step="0.1">
+                            </div>
+                            <div class="calc-group">
+                                <label>Loan Period (Years)</label>
+                                <input type="number" id="calc-years" value="25">
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--color-text-light); margin-top: 20px;">This calculation includes a 7% registration and fee right.</p>
+                        </div>
+                        <div class="calc-result-box">
+                            <div class="calc-blob" style="margin-top:20px;">
+                                <span class="result-amount" id="calc-monthly">₪ 0</span>
+                                <span class="result-label">Monthly Repayment</span>
+                            </div>
+                            <p class="calc-disclaimer" style="margin-top:20px; font-size:0.85rem; padding: 0 20px;">This estimate is for impression and simulation purposes. The actual repayment rate depends strictly on conditions offered by the banking entity. Let our agents assist you.</p>
+                            <a href="en.html#contact" class="btn-primary" style="margin-top: 30px; display: inline-block; padding: 15px 40px; font-size: 1.1rem; background-color: var(--color-primary); color: white; text-decoration: none; text-align: center; border: none; cursor: pointer; transition: opacity 0.3s; letter-spacing: 1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sticky Sidebar (Right in LTR) -->
+            <div class="property-sidebar">
+                <div class="property-sidebar-card sticky">
+                    <div class="sidebar-price">₪ 10,000,000</div>
+                    <div class="sidebar-agent">
+                        <div class="agent-avatar" style="background:#ddd; font-weight:bold;">S</div>
+                        <div>
+                            <h4 style="font-size: 1.2rem; margin-bottom: 5px; font-family: var(--font-heading);">Sofia</h4>
+                            <p style="color: var(--color-text-light); font-size: 0.95rem;">Luxury Real Estate Agent</p>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/972584008292" target="_blank" class="btn-primary" style="display: block; text-align: center; margin-bottom: 20px; background-color: #25d366; border-color: #25d366; color: #fff;">Schedule a Tour Now</a>
+                    <a href="mailto:sophianadlan@gmail.com" class="btn-primary" style="display: block; text-align: center; background-color: transparent; border-color: var(--color-primary); color: var(--color-primary);">Email Us directly</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- Recommended Properties Section -->
+    <section class="properties-section section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title" style="text-align: left; margin-left: 0;">These properties might also interest you</h2>
+            <style>
+                .properties-section .section-title::after { margin: 20px 0 40px; }
+            </style>
+            <div class="properties-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <!-- Recommended Property 1 -->
+                <a href="#" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                            <span class="property-badge">למכירה</span>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">דירת גן בשכונת למד</h3>
+                            <p class="property-location">שכונת למד, תל אביב</p>
+                            <div class="property-features">
+                                <span>4 חדרים</span>
+                                <span>120 מ"ר</span>
+                            </div>
+                            <p class="property-price">₪ 7,900,000</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Recommended Property 2 -->
+                <a href="#" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1e54117320?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                            <span class="property-badge rent-badge">להשכרה</span>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">דירת 3 חדרים מעוצבת</h3>
+                            <p class="property-location">כוכב הצפון, תל אביב</p>
+                            <div class="property-features">
+                                <span>3 חדרים</span>
+                                <span>85 מ"ר</span>
+                            </div>
+                            <p class="property-price">₪ 14,000 / חודש</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark" style="color: white;">
+        <div class="container">
+            <div class="footer-social">
+                <span class="footer-social-text">Follow us:</span>
+                <a href="https://www.instagram.com/nadlan_nofyam?igsh=eTM3YjF2aHl6YXE=" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+                        <path fill="url(#ig-grad)" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                    </svg>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nadlan Nof Yam. All rights reserved.</p>
+                <p class="design-credit" style="direction: ltr;">Inspired by Paris. Crafted in Tel Aviv.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>

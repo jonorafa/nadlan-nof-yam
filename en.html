@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nadlan Nof Yam - Luxury Real Estate in Tel Aviv</title>
+    <meta name="description" content="Nadlan Nof Yam - Luxury real estate agency in North Tel Aviv. Properties for sale and rent.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Leaflet (interactive map) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Specific overrides for LTR specific margin fixes which were originally hardcoded for RTL */
+        #neighborhood .section-title::after { margin: 20px 0 40px !important; }
+        #contact .section-title::after { margin: 20px 0 40px !important; }
+        .property-location::before { margin-right: 6px; margin-left: 0; }
+        .property-features span:not(:last-child)::after { margin: 0 15px 0 0; }
+        .contact-details strong { margin-right: 10px; margin-left: 0; }
+        /* Mirror Hebrew layout: logo-group on right, actions on left */
+        .header-container { flex-direction: row-reverse; }
+        .header-logo-group { flex-direction: row-reverse; }
+        .header-actions { justify-content: flex-start; }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="header-logo-group">
+                <div class="header-logo">
+                    <a href="#home">
+                        <img src="images/site/logo.png" alt="Nadlan Nof Yam">
+                    </a>
+                </div>
+                <a href="index.html" class="lang-pill-btn">HE</a>
+                <button class="menu-hamburger-btn" id="menuHamburgerBtn" aria-label="Main menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#sale">Sale</a></li>
+                    <li><a href="#rent">Rent</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#neighborhood">Neighborhood</a></li>
+                    <li><a href="#mortgage">Mortgage</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="wishlist-header-btn" id="wishlistHeaderBtn" aria-label="Favorites">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span>Favorites</span>
+                    <span class="wishlist-count-badge" id="wishlistCountBadge"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Your New Home by the Sea</h1>
+                <p class="hero-subtitle">A real estate agency specializing in North Tel Aviv and the surrounding area.</p>
+            </div>
+        </section>
+
+        <!-- Properties For Sale Section -->
+        <section id="sale" class="properties-section section-padding">
+            <div class="container">
+                <div class="section-filter-header">
+                    <h2 class="section-title">Properties for Sale</h2>
+                    <button class="filter-toggle-btn" id="filterToggleBtn" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+                        <span>Filter</span>
+                        <span class="active-filter-count" id="activeFilterCount"></span>
+                    </button>
+                </div>
+                <div class="filter-panel" id="filterPanel">
+                    <div class="filter-panel-inner">
+                        <div class="filter-group">
+                            <span class="filter-group-label">Property Type</span>
+                            <div class="filter-chips">
+                                <button class="filter-chip active" data-filter="type" data-value="all">All</button>
+                                <button class="filter-chip" data-filter="type" data-value="sale">For Sale</button>
+                                <button class="filter-chip" data-filter="type" data-value="rent">For Rent</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-label">Rooms</span>
+                            <div class="filter-chips">
+                                <button class="filter-chip active" data-filter="rooms" data-value="all">All</button>
+                                <button class="filter-chip" data-filter="rooms" data-value="1-3">1–3</button>
+                                <button class="filter-chip" data-filter="rooms" data-value="4-5">4–5</button>
+                                <button class="filter-chip" data-filter="rooms" data-value="6+">6+</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-label">Surface (sqm)</span>
+                            <div class="filter-chips">
+                                <button class="filter-chip active" data-filter="surface" data-value="all">All</button>
+                                <button class="filter-chip" data-filter="surface" data-value="0-120">Up to 120</button>
+                                <button class="filter-chip" data-filter="surface" data-value="120-200">120–200</button>
+                                <button class="filter-chip" data-filter="surface" data-value="200+">200+</button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-label">Budget (sale)</span>
+                            <div class="price-range-slider">
+                                <div class="price-range-display" id="priceRangeDisplay">All</div>
+                                <div class="range-track-wrapper">
+                                    <div class="range-fill" id="rangeFill"></div>
+                                    <input type="range" id="rangeMin" class="range-input" min="0" max="20000000" step="500000" value="0">
+                                    <input type="range" id="rangeMax" class="range-input" min="0" max="20000000" step="500000" value="20000000">
+                                </div>
+                                <div class="price-range-ends">
+                                    <span>₪ 0</span>
+                                    <span>₪ 20M</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="filter-reset-btn" id="filterResetBtn">↺ Reset</button>
+                    </div>
+                </div>
+                <div class="properties-grid" id="saleGrid">
+                    <p class="no-results-msg" id="saleNoResults" style="display:none;">No properties match your filters.</p>
+
+                    <!-- Property Card: Seaview Boutique (Exclusive) -->
+                    <a href="en-property-seaview.html" class="property-link" data-prop-type="sale" data-prop-price="5600000" data-prop-rooms="4" data-prop-surface="121" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/seaview/seaview-cover.jpg'); background-position: center;">
+                            <span class="property-badge">Exclusive</span>
+                            <button class="wishlist-heart" data-prop-id="seaview" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">First Line to the Sea | Boutique Building</h3>
+                            <p class="property-location">Ramat Aviv</p>
+                            <div class="property-features">
+                                <span>121 sqm + 24 balcony</span>
+                                <span>4 Rooms</span>
+                                <span>First Line Sea View</span>
+                            </div>
+                            <p class="property-price">₪ 5,600,000</p>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Property Card: New Penthouse Gimel -->
+                    <a href="en-property-gimel.html" class="property-link" data-prop-type="sale" data-prop-price="13500000" data-prop-rooms="5" data-prop-surface="200" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/gimel/gimel-8.jpg'); background-position: center;">
+                            <span class="property-badge">For Sale</span>
+                            <button class="wishlist-heart" data-prop-id="gimel" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Brand New Penthouse</h3>
+                            <p class="property-location">Ramat Aviv Gimel</p>
+                            <div class="property-features">
+                                <span>200 sqm + 120 balconies</span>
+                                <span>One Level</span>
+                                <span>Sea View</span>
+                            </div>
+                            <p class="property-price">₪ 13,500,000</p>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Property Card: Mini Penthouse -->
+                    <a href="en-property-penthouse.html" class="property-link" data-prop-type="sale" data-prop-price="8750000" data-prop-rooms="4" data-prop-surface="150" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/penthouse/penthouse1.jpg'); background-position: center;">
+                            <span class="property-badge">For Sale</span>
+                            <button class="wishlist-heart" data-prop-id="penthouse" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Mini Penthouse Gush Haghadol / Nofei Yam</h3>
+                            <p class="property-location">New Ramat Aviv</p>
+                            <div class="property-features">
+                                <span>150 sqm + 30 terrace</span>
+                                <span>4 rooms (orig. 5)</span>
+                                <span>Sea View</span>
+                            </div>
+                            <p class="property-price">₪ 8,750,000</p>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Property Card: Biasha Chefetz -->
+                    <a href="en-property-chefetz.html" class="property-link" data-prop-type="sale" data-prop-price="10000000" data-prop-rooms="4" data-prop-surface="155" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/chefetz/chefetz-cover.jpg'); background-position: center;">
+                            <span class="property-badge">For Sale</span>
+                            <button class="wishlist-heart" data-prop-id="chefetz" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Yasha Chefetz 16</h3>
+                            <p class="property-location">New Ramat Aviv</p>
+                            <div class="property-features">
+                                <span>155 sqm + 70 balcony</span>
+                                <span>4 Rooms (orig. 5)</span>
+                                <span>2 parking</span>
+                            </div>
+                            <p class="property-price">₪ 10,000,000</p>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Property Card: Reshpon Villa -->
+                    <a href="property-reshpon.html" class="property-link" data-prop-type="sale" data-prop-price="14500000" data-prop-rooms="6" data-prop-surface="300" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/reshpon/reshpon-cover.jpg'); background-position: center;">
+                            <span class="property-badge">For Sale</span>
+                            <button class="wishlist-heart" data-prop-id="reshpon" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Luxury Villa in Reshpon | Pool & Jacuzzi</h3>
+                            <p class="property-location">Reshpon</p>
+                            <div class="property-features">
+                                <span>300 sqm built | 500 sqm lot</span>
+                                <span>6 Rooms | 5 Suites</span>
+                                <span>🏊 Pool + Jacuzzi</span>
+                            </div>
+                            <p class="property-price">₪ 14,500,000</p>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- Property Card: Yuval Neeman -->
+                    <a href="en-property-yuval.html" class="property-link" data-prop-type="sold" data-prop-price="12300000" data-prop-rooms="6" data-prop-surface="250" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/yuval/yuval-cover.jpg'); background-position: center;">
+                            <span class="property-badge sold-badge">SOLD</span>
+                            <button class="wishlist-heart" data-prop-id="yuval" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Yuval Neeman 3</h3>
+                            <p class="property-location">Ramat Aviv</p>
+                            <div class="property-features">
+                                <span>250 sqm + 93 balcony</span>
+                                <span>6 Rooms</span>
+                                <span>Full Sea View</span>
+                            </div>
+                            <p class="property-price"><span class="price-crossed">₪ 17,500,000</span> ₪ 12,300,000</p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties For Rent Section -->
+        <section id="rent" class="properties-section section-padding bg-light">
+            <div class="container">
+                <h2 class="section-title">Properties for Rent</h2>
+                <div class="properties-grid" id="rentGrid">
+                    <!-- Property Card: Lamed HaChadasha -->
+                    <a href="en-property-lamed.html" class="property-link" data-prop-type="rent" data-prop-price="12500" data-prop-rooms="4" data-prop-surface="112" style="text-decoration:none; color:inherit; display:block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('images/lamed/lamed-cover.jpg'); background-position: center;">
+                            <span class="property-badge rent-badge">For Rent</span>
+                            <button class="wishlist-heart" data-prop-id="lamed" aria-label="Save to favourites"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                        </div>
+                        <div class="property-details">
+                            <h3 class="property-title">Brand New Apartment in New Lamed</h3>
+                            <p class="property-location">Shikun Lamed, Tel Aviv</p>
+                            <div class="property-features">
+                                <span>4 Rooms</span>
+                                <span>112 sqm</span>
+                                <span>12 sqm Sun Balcony</span>
+                            </div>
+                            <p class="property-price">₪ 12,500 / month</p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team-section section-padding">
+            <div class="container">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-subtitle">Real estate expertise in North Tel Aviv with personal dedication.</p>
+                <div class="team-grid">
+                    <!-- Team Member 1 -->
+                    <div class="team-card">
+                        <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; border: 3px solid #f0ece6;">
+                            <img src="images/team/sofia.pic.jpg" alt="Sofia" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%;">
+                        </div>
+                        <h3 class="team-name">Sofia</h3>
+                        <p class="team-role" style="margin-bottom: 5px;">058-400-8292 📞</p>
+                        <a href="mailto:sophianadlan@gmail.com" class="team-contact">sophianadlan@gmail.com ✉️</a>
+                        <div class="team-languages" style="margin-top: 15px; font-size: 1.4rem;">
+                            🇫🇷 🇬🇧 🇮🇱
+                        </div>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="team-card">
+                        <div style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; border: 3px solid #f0ece6;">
+                            <img src="images/team/sigal.pic.jpg" alt="Sigal" style="width: 100%; height: 100%; object-fit: cover; object-position: center 10%;">
+                        </div>
+                        <h3 class="team-name">Sigal</h3>
+                        <p class="team-role" style="margin-bottom: 5px;">050-217-5633 📞</p>
+                        <a href="mailto:sigalnadlan@gmail.com" class="team-contact">sigalnadlan@gmail.com ✉️</a>
+                        <div class="team-languages" style="margin-top: 15px; font-size: 1.4rem;">
+                            🇬🇧 🇮🇱
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neighborhood Section -->
+        <section id="neighborhood" class="neighborhood-section section-padding bg-light">
+            <div class="container">
+                <div class="neighborhood-feature">
+                    <div class="neighborhood-text">
+                        <h2 class="section-title" style="text-align: left; margin-left: 0; margin-bottom: 20px;">About the Neighborhood</h2>
+                        <p class="neighborhood-paragraph">Just a 5-minute walk from the sea, these neighborhoods are the next big thing in North Tel Aviv. Everything here is built to a high modern standard, with plenty of new buildings and contemporary architecture suited for those seeking a high quality of life.</p>
+                        <p class="neighborhood-paragraph">The neighborhood is lively and developing rapidly. New cafes, restaurants, and local businesses are constantly opening, giving you everything you need right downstairs.</p>
+                    </div>
+                    <div class="neighborhood-image" style="background-image: url('images/neighborhood/neighborhood-1.jpg');"></div>
+                </div>
+
+                <div class="neighborhood-feature reverse" style="margin-top: 80px;">
+                    <div class="neighborhood-image" style="background-image: url('images/neighborhood/neighborhood-2.jpg');"></div>
+                    <div class="neighborhood-text">
+                        <h2 class="section-title" style="text-align: left; margin-left: 0; margin-bottom: 20px;">A Smart Future Investment</h2>
+                        <p class="neighborhood-paragraph" style="font-size: 1.25rem; color: var(--color-primary); font-weight: 600;">But the biggest plus here is the transportation. The new Metro project (already under construction) will pass right through the neighborhood.</p>
+                        <p class="neighborhood-paragraph">This means you can live in the quiet of the north of the city, close to the sea, and reach Rothschild Boulevard and the center of action in a 7-minute drive. This is a smart investment where property values will only rise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section section-padding bg-light">
+            <div class="container">
+                <h2 class="section-title" style="text-align: center; margin-left: 0; margin-right: 0;">What Our Clients Say</h2>
+                <div class="testimonials-marquee">
+                    <div class="testimonials-track">
+                        <!-- Set 1 -->
+                        <article class="testimonial-card">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">BB</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Benjamin Bens</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Very professional and attentive, she helped me find the perfect property in the neighborhood. Highly recommended!</p>
+                        </article>
+
+                        <article class="testimonial-card">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">SL</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Sheli Lascar</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Highly recommend this agency. A professional, available and kind team that guided me beautifully from start to finish.</p>
+                        </article>
+
+                        <article class="testimonial-card">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">CS</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Clara Sellam</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Sofia helped us find a place super fast — couldn't have been easier.</p>
+                        </article>
+
+                        <article class="testimonial-card">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">BS</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Benhaim Sacha</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">We were looking for an apartment near the sea and she found us exactly what we wanted. A real pro.</p>
+                        </article>
+
+                        <!-- Set 2 (duplicate for seamless loop) -->
+                        <article class="testimonial-card" aria-hidden="true">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">BB</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Benjamin Bens</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Very professional and attentive, she helped me find the perfect property in the neighborhood. Highly recommended!</p>
+                        </article>
+
+                        <article class="testimonial-card" aria-hidden="true">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">SL</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Sheli Lascar</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Highly recommend this agency. A professional, available and kind team that guided me beautifully from start to finish.</p>
+                        </article>
+
+                        <article class="testimonial-card" aria-hidden="true">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">CS</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Clara Sellam</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">Sofia helped us find a place super fast — couldn't have been easier.</p>
+                        </article>
+
+                        <article class="testimonial-card" aria-hidden="true">
+                            <span class="quote-icon">"</span>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">BS</div>
+                                <div class="testimonial-meta">
+                                    <p class="client-name">Benhaim Sacha</p>
+                                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="google-badge-link" aria-label="See on Google">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13" style="vertical-align:middle;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                        <span class="google-badge-text">Google</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="stars">★★★★★</div>
+                            <p class="quote">We were looking for an apartment near the sea and she found us exactly what we wanted. A real pro.</p>
+                        </article>
+                    </div>
+                </div>
+                <div class="google-reviews-cta">
+                    <a href="https://www.google.com/search?q=Nadlan+Nof-Yam+Tel+Aviv" target="_blank" rel="noopener noreferrer" class="btn-google-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                        <span>See all our Google reviews</span>
+                        <span class="google-all-rating">5.0 ★★★★★ · 10 reviews</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <!-- Mortgage Calculator Section -->
+        <section id="mortgage" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Mortgage Calculator</h2>
+                <div class="mortgage-calculator">
+                    <p style="text-align:center;color:var(--color-text-light);margin-bottom:50px;">Calculate your estimated monthly repayment accurately.</p>
+                    <div class="calc-grid">
+                        <div class="calc-inputs">
+                            <div class="calc-group">
+                                <label>Property Price (₪)</label>
+                                <input type="number" id="calc-price" value="5000000">
+                            </div>
+                            <div class="calc-group">
+                                <label>Down Payment &amp; Initial Equity (₪)</label>
+                                <input type="number" id="calc-downpayment" value="2000000">
+                            </div>
+                            <div class="calc-group">
+                                <label>Estimated Interest Rate (%)</label>
+                                <input type="number" id="calc-interest" value="4.5" step="0.1">
+                            </div>
+                            <div class="calc-group">
+                                <label>Loan Period (years)</label>
+                                <input type="number" id="calc-years" value="25">
+                            </div>
+                        </div>
+                        <div class="calc-result-box">
+                            <div class="calc-blob">
+                                <span class="result-amount" id="calc-monthly">₪ 0</span>
+                                <span class="result-label">Monthly Payment</span>
+                            </div>
+                            <p class="calc-disclaimer" style="margin-top:20px;font-size:0.85rem;padding:0 20px;text-align:center;">This estimate is for simulation purposes only. The final repayment depends on your bank's mortgage terms. Our agents will be happy to connect you with our expert financing advisors.</p>
+                            <a href="#contact" style="margin-top:30px;display:inline-block;padding:15px 40px;font-size:1.1rem;background-color:var(--color-primary);color:white;text-decoration:none;text-align:center;cursor:pointer;transition:opacity 0.3s;letter-spacing:1px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section section-padding bg-dark">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2 class="section-title light-text" style="text-align: left; margin-left: 0;">Contact Us</h2>
+                        <p class="contact-text">We are here to help you find your dream property, or to sell your existing property with the professionalism it deserves.</p>
+                        
+                        <div class="contact-details">
+                            <p><strong>Phone:</strong></p>
+                            <p style="margin: 2px 0;">058-400-8292</p>
+                            <p style="margin: 2px 0;">050-217-5633</p>
+                            <p style="margin-top: 12px;"><strong>Email:</strong></p>
+                            <p style="margin: 2px 0;">sophianadlan@gmail.com</p>
+                            <p style="margin: 2px 0;">sigalnadlan@gmail.com</p>
+                            <p style="margin-top: 10px;"><strong>Address:</strong> Amir Gilboa 12, Tel Aviv</p>
+                        </div>
+
+                        <div class="contact-hours" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: white; margin-bottom: 20px;">Opening Hours:</h3>
+                            <ul style="list-style: none; padding: 0; color: var(--color-text-light); line-height: 2;">
+                                <li><strong>Sunday:</strong> 10:00 - 18:00</li>
+                                <li><strong>Monday:</strong> 10:00 - 18:00</li>
+                                <li><strong>Tuesday:</strong> 10:00 - 18:00</li>
+                                <li><strong>Wednesday:</strong> 10:00 - 18:00</li>
+                                <li><strong>Thursday:</strong> 10:00 - 18:00</li>
+                                <li><strong>Friday:</strong> 09:00 - 13:00</li>
+                                <li><strong>Saturday:</strong> Closed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact-right" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="contact-form-wrapper" style="padding: 25px;">
+                            <form class="contact-form" style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div class="form-group" style="flex: 1; min-width: 150px; margin-bottom: 0;">
+                                    <input type="text" id="name" placeholder="Full Name" required style="padding: 12px; margin: 0;">
+                                </div>
+                                <div class="form-group" style="flex: 1; min-width: 150px; margin-bottom: 0;">
+                                    <input type="tel" id="phone" placeholder="Phone Number" required style="padding: 12px; margin: 0;">
+                                </div>
+                                <button type="submit" class="btn-primary" style="padding: 12px; width: 100%;">Send Message</button>
+                            </form>
+                        </div>
+                        <div class="contact-map" style="flex: 1; width: 100%; margin-top: 10px;">
+                            <img src="images/site/map.jpg" alt="Map" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: block;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-social">
+                <span class="footer-social-text">Follow us:</span>
+                <a href="https://www.instagram.com/nadlan_nofyam?igsh=eTM3YjF2aHl6YXE=" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+                        <path fill="url(#ig-grad)" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                    </svg>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="#1877F2"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0077B5"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Nadlan Nof Yam. All rights reserved.</p>
+                <p class="design-credit" style="direction: ltr;">Inspired by Paris. Crafted in Tel Aviv.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/972584008292" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 35px; height: 35px; fill: white; display: block; margin: 0 auto;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    </a>
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlistModal" style="display:none;">
+        <div class="wishlist-modal-overlay" id="wishlistModalOverlay"></div>
+        <div class="wishlist-modal-box">
+            <div class="wishlist-modal-header">
+                <h3>My Favorites</h3>
+                <button class="wishlist-modal-close" id="wishlistModalClose">✕</button>
+            </div>
+            <div class="wishlist-modal-body" id="wishlistModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Main Menu Drawer -->
+    <div class="menu-drawer" id="menuDrawer" aria-hidden="true">
+        <div class="menu-drawer-overlay" id="menuDrawerOverlay"></div>
+        <aside class="menu-drawer-panel" role="dialog" aria-label="Main menu">
+            <div class="menu-drawer-header">
+                <div class="menu-drawer-logo">
+                    <img src="images/site/logo.png" alt="Nadlan Nof Yam">
+                </div>
+                <button class="menu-drawer-close" id="menuDrawerClose" aria-label="Close menu">✕</button>
+            </div>
+
+            <nav class="menu-drawer-nav">
+                <span class="menu-drawer-section-label">Navigation</span>
+                <ul>
+                    <li><a href="#home" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">🏠</span><span>Home</span></a></li>
+                    <li><a href="#sale" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">🔑</span><span>Properties for Sale</span></a></li>
+                    <li><a href="#rent" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">🏡</span><span>Properties for Rent</span></a></li>
+                    <li><a href="#team" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">👥</span><span>Our Team</span></a></li>
+                    <li><a href="#neighborhood" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">📍</span><span>The Neighborhood</span></a></li>
+                    <li><a href="#mortgage" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">🏦</span><span>Mortgage Calculator</span></a></li>
+                    <li><a href="#contact" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">✉️</span><span>Contact</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-drawer-section">
+                <span class="menu-drawer-section-label">Services</span>
+                <ul>
+                    <li><button class="menu-drawer-link menu-drawer-btn" id="menuOpenWishlist"><span class="menu-link-icon">❤️</span><span>My Favorites</span><span class="menu-drawer-badge" id="menuDrawerWishlistCount"></span></button></li>
+                    <li><a href="#mortgage" class="menu-drawer-link" data-close-menu><span class="menu-link-icon">💰</span><span>Mortgage Calculator</span></a></li>
+                </ul>
+            </div>
+
+            <div class="menu-drawer-contact">
+                <span class="menu-drawer-section-label">Direct Contact</span>
+                <a href="tel:+972584008292" class="menu-contact-item">
+                    <span class="menu-link-icon">📞</span>
+                    <div>
+                        <strong>Sophia</strong>
+                        <span style="display:block;">058-400-8292</span>
+                    </div>
+                </a>
+                <a href="tel:+972502175633" class="menu-contact-item">
+                    <span class="menu-link-icon">📞</span>
+                    <div>
+                        <strong>Sigal</strong>
+                        <span style="display:block;">050-217-5633</span>
+                    </div>
+                </a>
+                <a href="mailto:sophianadlan@gmail.com" class="menu-contact-item">
+                    <span class="menu-link-icon">✉️</span>
+                    <div>
+                        <strong>Email</strong>
+                        <span>sophianadlan@gmail.com</span>
+                    </div>
+                </a>
+                <div class="menu-contact-item" style="cursor:default;">
+                    <span class="menu-link-icon">🏢</span>
+                    <div>
+                        <strong>Office</strong>
+                        <span>Amir Gilboa 12, Tel Aviv</span>
+                    </div>
+                </div>
+                <div class="menu-contact-item" style="cursor:default;">
+                    <span class="menu-link-icon">🕐</span>
+                    <div>
+                        <strong>Hours</strong>
+                        <span>Sun–Thu 10:00–18:00 | Fri 09:00–13:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-drawer-social">
+                <span class="menu-drawer-section-label">Follow Us</span>
+                <div class="menu-social-row">
+                    <a href="https://wa.me/972584008292" target="_blank" rel="noopener" class="menu-social-btn" aria-label="WhatsApp" style="color:#25D366;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/nadlan_nofyam" target="_blank" rel="noopener" class="menu-social-btn" aria-label="Instagram" style="color:#E1306C;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8z"/></svg>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" class="menu-social-btn" aria-label="Facebook" style="color:#1877F2;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" class="menu-social-btn" aria-label="LinkedIn" style="color:#0077B5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-drawer-footer">
+                <a href="index.html" class="menu-lang-switch">
+                    <span>🌐</span>
+                    <span>Hebrew Version</span>
+                    <span style="margin-left:auto;">→</span>
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
