@@ -1,4 +1,44 @@
+// Thin line-icons matching the property card's key facts, chosen by keyword
+// so every card (main grids + related-property cards) gets one automatically
+// without hand-editing each card's markup.
+const FEATURE_ICONS = {
+    area: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
+    bed: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18v2M21 18v2M3 12V8a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v2"/></svg>',
+    floor: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+    outdoor: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>',
+    pool: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0"/><path d="M2 21c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0"/><path d="M6 13V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7"/></svg>',
+    parking: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 16V8h4a3 3 0 0 1 0 6H9"/></svg>',
+    storage: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>',
+    elevator: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 7v4M10 9l2-2 2 2M12 13v4M10 15l2 2 2-2"/></svg>',
+    generic: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>',
+};
+
+// Small inline heart glyph for use inside text strings (matches the wishlist-heart button icon)
+const FEATURE_ICONS_HEART_INLINE = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;vertical-align:-2px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+
+function pickFeatureIcon(text) {
+    if (/מ"ר|sqm|sq\.?\s?m/i.test(text)) return FEATURE_ICONS.area;
+    if (/חדר|room/i.test(text)) return FEATURE_ICONS.bed;
+    if (/קומה|floor/i.test(text)) return FEATURE_ICONS.floor;
+    if (/מרפסת|גינה|garden|balcony|terrace|חצר/i.test(text)) return FEATURE_ICONS.outdoor;
+    if (/בריכה|ג'קוזי|pool|jacuzzi/i.test(text)) return FEATURE_ICONS.pool;
+    if (/חני|parking/i.test(text)) return FEATURE_ICONS.parking;
+    if (/מחסן|storage/i.test(text)) return FEATURE_ICONS.storage;
+    if (/מעלית|elevator/i.test(text)) return FEATURE_ICONS.elevator;
+    return FEATURE_ICONS.generic;
+}
+
+function addPropertyFeatureIcons() {
+    document.querySelectorAll('.property-features span').forEach(span => {
+        if (span.querySelector('svg')) return; // already processed
+        const icon = pickFeatureIcon(span.textContent);
+        span.insertAdjacentHTML('afterbegin', icon);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    addPropertyFeatureIcons();
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -162,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const pageTitle = document.title;
 
         const copiedMessage = lang.startsWith('en')
-            ? 'Link copied to clipboard ✓'
-            : 'הקישור הועתק ✓';
+            ? 'Link copied to clipboard'
+            : 'הקישור הועתק';
 
         const shareText = lang.startsWith('en')
             ? `Check out this property on Nadlan Nof Yam: ${pageTitle}`
@@ -412,8 +452,8 @@ function renderWishlistModal() {
     if (wishlist.length === 0) {
         wishlistSlideIndex = 0;
         body.innerHTML = isEn
-            ? '<p style="text-align:center;padding:50px 20px;color:var(--color-text-light);font-size:1.05rem;line-height:1.8;">No saved properties yet.<br>Click ❤ on a property card to add one.</p>'
-            : '<p style="text-align:center;padding:50px 20px;color:var(--color-text-light);font-size:1.05rem;line-height:1.8;">עדיין אין נכסים שמורים.<br>לחצו על ❤ על כרטיס נכס כדי להוסיף.</p>';
+            ? `<p style="text-align:center;padding:50px 20px;color:var(--color-text-light);font-size:1.05rem;line-height:1.8;">No saved properties yet.<br>Click ${FEATURE_ICONS_HEART_INLINE} on a property card to add one.</p>`
+            : `<p style="text-align:center;padding:50px 20px;color:var(--color-text-light);font-size:1.05rem;line-height:1.8;">עדיין אין נכסים שמורים.<br>לחצו על ${FEATURE_ICONS_HEART_INLINE} על כרטיס נכס כדי להוסיף.</p>`;
         return;
     }
 
@@ -428,12 +468,12 @@ function renderWishlistModal() {
         const title       = isEn && p.titleEn    ? p.titleEn    : p.title;
         const loc         = isEn && p.locationEn ? p.locationEn : p.location;
         const viewLabel   = isEn ? 'View property →' : '← צפה בנכס';
-        const removeLabel = isEn ? 'Remove ✕' : 'הסר ✕';
+        const removeLabel = isEn ? 'Remove' : 'הסר';
         return `<a href="${link}" class="wishlist-slide">
             <div class="wishlist-slide-img" style="background-image:url('${p.image}')"></div>
             <div class="wishlist-slide-body" dir="${pageDir}">
                 <h4 class="wishlist-slide-title">${title}</h4>
-                <p class="wishlist-slide-location">📍 ${loc}</p>
+                <p class="wishlist-slide-location">${loc}</p>
                 <p class="wishlist-slide-price">${p.price}</p>
                 <div class="wishlist-slide-actions">
                     <span class="btn-wishlist-view">${viewLabel}</span>
