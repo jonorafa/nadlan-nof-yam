@@ -32,8 +32,18 @@
             coords: [32.1168, 34.7948]
         },
         {
+            title: 'דירת גן יוקרתית בבניין בוטיק',
+            location: 'רמת אביב החדשה',
+            price: '₪ 11,500,000',
+            status: 'sale',
+            badge: 'בלעדיות',
+            image: 'images/bien4/gan-cover.jpg',
+            link: 'property-gan.html',
+            coords: [32.1165, 34.7945]
+        },
+        {
             title: 'דירת 5 חדרים בבלעדיות',
-            location: 'שכונת נופי ים',
+            location: 'רמת אביב החדשה',
             price: '₪ 6,300,000',
             status: 'sale',
             badge: 'בלעדיות',
@@ -44,7 +54,7 @@
         },
         {
             title: 'בלעדיות חדשה | דופלקס פנטהאוז נדיר',
-            location: 'תל אביב, בקרבת הים',
+            location: 'רמת אביב החדשה',
             price: '₪ 11,500,000',
             status: 'sale',
             badge: 'בלעדיות',
@@ -55,7 +65,7 @@
         },
         {
             title: 'דירת 3.5 חדרים ענקית',
-            location: 'סמוך לשדרת איינשטיין',
+            location: 'רמת אביב החדשה',
             price: '₪ 4,500,000',
             status: 'sale',
             badge: 'למכירה',
