@@ -175,12 +175,12 @@
     mapEl.addEventListener('mouseenter', showHint);
     mapEl.addEventListener('touchstart', showHint, { passive: true });
 
-    // CartoDB Voyager tiles — free, commercial-friendly, reliable in production.
-    // Using the official "rastertiles/voyager" endpoint that's guaranteed to work.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
+    // Standard OpenStreetMap tiles — free, no API key required.
+    // (CartoDB's free Voyager tiles now require an API key, hence the switch.)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abc',
+        maxZoom: 19
     }).addTo(map);
 
     // -----------------------------------------------------------------
