@@ -500,6 +500,17 @@ img {
     border-bottom: 1px solid transparent;
 }
 
+.team-contact-icon {
+    display: inline-flex;
+    vertical-align: -3px;
+    margin-left: 6px; /* RTL - icon before the text */
+}
+
+.team-contact-icon svg {
+    width: 15px;
+    height: 15px;
+}
+
 .team-contact:hover {
     color: var(--color-primary);
     border-color: var(--color-primary);
