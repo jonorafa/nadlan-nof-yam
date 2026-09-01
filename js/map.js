@@ -54,14 +54,14 @@
         },
         {
             title: 'בלעדיות חדשה | דופלקס פנטהאוז נדיר',
-            location: 'רמת אביב החדשה',
+            location: 'ישה חפץ 11, רמת אביב החדשה',
             price: '₪ 11,500,000',
             status: 'sale',
             badge: 'בלעדיות',
             image: 'images/bien2/duplex-cover.jpg',
             link: 'property-duplex.html',
-            // Ramat Aviv HaChadasha (corrected — previous coords landed in the sea)
-            coords: [32.1158, 34.7938]
+            // Yasha Hefetz St 11 - geocoded by Google Maps (32.116849, 34.788569)
+            coords: [32.1168, 34.7886]
         },
         {
             title: 'דירת 3.5 חדרים ענקית',
@@ -108,12 +108,23 @@
             coords: [32.1127, 34.7865]
         },
         {
+            title: 'אמיר גלבוע 7',
+            location: 'רמת אביב החדשה',
+            price: '₪ 8,800,000',
+            status: 'sale',
+            badge: 'למכירה',
+            image: 'images/bien5/amir-cover.jpg',
+            link: 'property-amir.html',
+            // Amir Gilboa St 7 - from Google Maps plus code 4Q8Q+P5 Tel-Aviv
+            coords: [32.1168, 34.7879]
+        },
+        {
             title: 'דירה חדשה בלמד החדשה',
             location: 'שכונת למד, תל אביב',
             price: '₪ 12,500 / חודש',
             status: 'rent',
             badge: 'להשכרה',
-            image: 'images/lamed/lamed-cover.jpg',
+            image: 'images/seaview/seaview-cover.jpg',
             link: 'property-lamed.html',
             // Exact coordinates: 32°06'38.0"N 34°47'16.8"E
             coords: [32.1106, 34.7880]

@@ -1,2 +1,5 @@
 .DS_Store
-.claude/
+
+# Keep local Claude Code settings out of git, but version shared skills
+.claude/*
+!.claude/skills/
