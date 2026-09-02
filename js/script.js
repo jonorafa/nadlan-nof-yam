@@ -402,7 +402,6 @@ const PROPERTIES_DATA = [
     { id: 'penthouse', title: 'מיני פנטהאוז בגוש הגדול / נופי ים',       titleEn: 'Mini Penthouse | Sea Views',                  location: 'רמת אביב החדשה',    locationEn: 'New Ramat Aviv',       price: '₪ 8,750,000',      image: 'images/penthouse/penthouse1.jpg',       link: 'property-penthouse.html' },
     { id: 'chefetz',   title: 'ישה חפץ 16',                                titleEn: 'Yisha Chefetz 16',                            location: 'רמת אביב החדשה',    locationEn: 'New Ramat Aviv',       price: '₪ 10,000,000',     image: 'images/chefetz/chefetz-cover.jpg',      link: 'property-chefetz.html' },
     { id: 'yuval',     title: 'יובל נאמן 3',                               titleEn: 'Yuval Neeman 3',                              location: 'רמת אביב',          locationEn: 'Ramat Aviv',           price: '₪ 12,300,000',     image: 'images/yuval/yuval-cover.jpg',          link: 'property-yuval.html' },
-    { id: 'lamed',     title: 'דירה חדשה בלמד החדשה',                     titleEn: 'New Apartment in Lamed',                      location: 'שכונת למד, תל אביב', locationEn: 'Lamed, Tel Aviv',     price: '₪ 12,500 / mo',    image: 'images/seaview/seaview-cover.jpg',      link: 'property-lamed.html' },
 ];
 
 // ===== WISHLIST (localStorage) =====

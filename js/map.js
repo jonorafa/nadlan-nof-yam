@@ -118,17 +118,6 @@
             link: 'property-amir.html',
             // Amir Gilboa St 7 - from Google Maps plus code 4Q8Q+P5 Tel-Aviv
             coords: [32.1168, 34.7879]
-        },
-        {
-            title: 'דירה חדשה בלמד החדשה',
-            location: 'שכונת למד, תל אביב',
-            price: '₪ 12,500 / חודש',
-            status: 'rent',
-            badge: 'להשכרה',
-            image: 'images/seaview/seaview-cover.jpg',
-            link: 'property-lamed.html',
-            // Exact coordinates: 32°06'38.0"N 34°47'16.8"E
-            coords: [32.1106, 34.7880]
         }
     ];
 

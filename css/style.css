@@ -227,6 +227,13 @@ img {
     justify-content: center;
 }
 
+/* On pages with the hamburger menu button (home + EN), keep the nav
+   clear of it - the button sits right at the boundary with the logo
+   group and can overlap the first nav item at mid-range widths. */
+.header-logo-group + .header-nav {
+    margin-right: 28px;
+}
+
 .header-nav ul {
     display: flex;
     gap: 40px;
@@ -3065,13 +3072,14 @@ a.wishlist-item:hover {
 /* ===== ESTIMATION WIZARD ===== */
 .estim-hero {
     background-color: #f2efe9;
-    padding: 100px 0 60px;
+    padding: 200px 0 60px;
     text-align: center;
 }
 
 .estim-hero h1 {
     font-size: 3rem;
-    font-weight: 500;
+    font-weight: 700;
+    color: var(--color-primary);
     letter-spacing: 1px;
     margin-bottom: 16px;
 }
@@ -3481,6 +3489,7 @@ a.wishlist-item:hover {
 }
 
 @media (max-width: 600px) {
+    .estim-hero { padding-top: 190px; }
     .estim-hero h1 { font-size: 2.1rem; }
     .estim-blob { width: 200px; height: 200px; margin: -10px; }
     .estim-blob .result-amount { font-size: 1.6rem; }
