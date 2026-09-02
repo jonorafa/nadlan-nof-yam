@@ -145,8 +145,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const houseNumberInput = document.getElementById('estimHouseNumber');
     if (houseNumberInput) houseNumberInput.addEventListener('input', () => { state.houseNumber = houseNumberInput.value; });
 
-    wireStepperInput('estimFloorStepper', 0, 60, v => { state.floor = v; }, 0);
-    wireStepperInput('estimBuildingFloorsStepper', 0, 60, v => { state.buildingFloors = v; }, 0);
+    // Track the floor the user actually asked for separately from state.floor
+    // (which gets clamped to the building's height) - so if they raise the
+    // building's floor count back up, their original choice can be restored
+    // instead of getting stuck at whatever it was clamped down to along the way.
+    let desiredFloor = 0;
+    wireStepperInput('estimFloorStepper', 0, 60, v => {
+        desiredFloor = v;
+        if (state.buildingFloors > 0 && v > state.buildingFloors) {
+            v = state.buildingFloors;
+            const floorInput = document.querySelector('#estimFloorStepper input');
+            if (floorInput) floorInput.value = v;
+        }
+        state.floor = v;
+    }, 0);
+    wireStepperInput('estimBuildingFloorsStepper', 0, 60, v => {
+        state.buildingFloors = v;
+        // Can't be higher than the building itself - re-derive from the
+        // user's desired floor, capped to the new building height.
+        const clampedFloor = v > 0 ? Math.min(desiredFloor, v) : desiredFloor;
+        if (clampedFloor !== state.floor) {
+            state.floor = clampedFloor;
+            const floorInput = document.querySelector('#estimFloorStepper input');
+            if (floorInput) floorInput.value = clampedFloor;
+        }
+    }, 0);
 
     // ---------- Step 2 ----------
     const surfaceInput = document.getElementById('estimSurface');
@@ -193,6 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (n === 1) {
             if (!state.type) msg = isEn ? 'Please choose a property type.' : 'נא לבחור סוג נכס.';
             else if (!state.street) msg = isEn ? 'Please enter the street.' : 'נא להזין רחוב.';
+            else if (state.buildingFloors > 0 && state.floor > state.buildingFloors) {
+                msg = isEn ? 'The floor can\'t be higher than the building\'s total floors.' : 'הקומה לא יכולה להיות גבוהה ממספר הקומות בבניין.';
+            }
         } else if (n === 2) {
             if (!state.surface || state.surface <= 0) msg = isEn ? 'Living area (sqm) is required.' : 'נא להזין שטח בנוי (מ"ר) - שדה חובה.';
         } else if (n === 4) {
