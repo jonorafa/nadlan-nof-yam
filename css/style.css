@@ -231,13 +231,24 @@ img {
    clear of it - the button sits right at the boundary with the logo
    group and can overlap the first nav item at mid-range widths. */
 .header-logo-group + .header-nav {
-    margin-right: 28px;
+    margin-right: 48px;
+}
+
+/* At wider screens there's ample unused space next to the wishlist
+   button (now reclaimed above) - push the nav further from the
+   hamburger there, per client request (~3cm / 140px clearance). */
+@media (min-width: 1300px) {
+    .header-logo-group + .header-nav {
+        margin-right: 140px;
+    }
 }
 
 .header-nav ul {
     display: flex;
-    gap: 40px;
-    flex-wrap: nowrap;
+    gap: 28px;
+    row-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .header-nav a {
@@ -1936,7 +1947,10 @@ html[dir="rtl"] .carousel-counter {
 
 /* ===== HEADER LOGO GROUP + EN PILL ===== */
 .header-logo-group {
-    flex: 1;
+    /* Was flex: 1 (grow), which made its box size unpredictable and
+       fought with the nav for leftover space. Size to its own content
+       instead so the nav's clearance from it is consistent. */
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 14px;
@@ -1974,7 +1988,11 @@ html[dir="rtl"] .carousel-counter {
 
 /* ===== HEADER ACTIONS (wishlist) ===== */
 .header-actions {
-    flex: 1;
+    /* Was flex: 1, which grabbed a large unused chunk of space (the
+       button is right-aligned within it) while the nav on the other
+       side stayed cramped against the hamburger. Size to content
+       instead so that freed space goes to the nav's own margin below. */
+    flex: 0 0 auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
