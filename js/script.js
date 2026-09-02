@@ -799,3 +799,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ===== PROCESS SECTION: highlight whichever step sits closest to the middle
+// of the viewport. Measured on scroll rather than with an IntersectionObserver
+// band: a step is taller than any sensible band, so it would stay "entered"
+// and never hand over to the next one.
+document.addEventListener('DOMContentLoaded', () => {
+    const steps = Array.from(document.querySelectorAll('.process-step'));
+    if (!steps.length) return;
+
+    let ticking = false;
+
+    function updateActiveStep() {
+        ticking = false;
+        const middle = window.innerHeight / 2;
+        let closest = steps[0];
+        let smallestDistance = Infinity;
+
+        steps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            const distance = Math.abs(rect.top + rect.height / 2 - middle);
+            if (distance < smallestDistance) {
+                smallestDistance = distance;
+                closest = step;
+            }
+        });
+
+        steps.forEach(step => step.classList.toggle('active', step === closest));
+    }
+
+    function requestUpdate() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateActiveStep);
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    updateActiveStep();
+});

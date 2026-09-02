@@ -126,8 +126,10 @@
         title: 'משרד תיווך נוף ים',
         location: 'אמיר גלבוע 12',
         badge: 'משרד',
-        // Exact coordinates: 32°06'58.7"N 34°47'15.8"E
-        coords: [32.1163, 34.7877]
+        // Nudged ~35m south from the original geocode, per the client's Google Maps
+        // screenshot, to sit closer to the roundabout at the Amir Gilboa / Arnold
+        // Schoenberg Sq. junction - approximate, refine with a plus code if needed.
+        coords: [32.1160, 34.7877]
     };
 
     // -----------------------------------------------------------------
@@ -243,6 +245,8 @@
         popupAnchor: [0, -35]
     });
 
+    const agencyMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('אמיר גלבוע 12, תל אביב');
+
     const agencyPopup = `
         <div class="map-popup">
             <div class="map-popup__body">
@@ -250,6 +254,7 @@
                 <p class="map-popup__location">${agencyLocation.location}</p>
                 <p style="color: var(--color-secondary); font-weight: 600; margin-top: 10px; display:flex; align-items:center; gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg>058-400-8292</p>
                 <p style="color: var(--color-secondary); font-weight: 600; display:flex; align-items:center; gap:6px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg>050-217-5633</p>
+                <a href="${agencyMapsUrl}" target="_blank" rel="noopener noreferrer" class="map-popup__link" style="margin-top: 12px;">פתיחה בגוגל מפות ←</a>
             </div>
         </div>
     `;
