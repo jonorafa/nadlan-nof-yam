@@ -230,8 +230,12 @@ img {
 /* .header-logo-group and .header-actions are both sized to their own
    content (see below), so .header-nav's box runs exactly between them
    and justify-content: center on it keeps the nav equidistant from
-   the hamburger on one side and the wishlist button on the other -
-   no extra margin needed here. */
+   the hamburger on one side and the wishlist button on the other.
+   Nudged slightly toward the logo/hamburger per client request, by
+   about the width of "מכירה" (~40px). */
+.header-logo-group + .header-nav {
+    margin-left: 80px;
+}
 
 .header-nav ul {
     display: flex;
