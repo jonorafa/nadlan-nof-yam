@@ -2,7 +2,17 @@
 // both pages use the same element ids, only the visible label text differs per language.
 // The pricing model itself lives in pricing-config.json so it can be tuned without touching code.
 
+// Browsers restore the previous scroll position on this page (e.g. clicking the nav
+// link while already on it, or coming back via history) and land straight on the wizard
+// with the hero title scrolled off-screen. Force the top on every load.
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+
     const wizard = document.getElementById('estimWizard');
     if (!wizard) return; // not on this page
 
