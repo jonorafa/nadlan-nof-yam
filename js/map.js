@@ -12,8 +12,8 @@
 
     // Center: heart of Nofei Yam neighborhood (where ~90% of listings are located)
     // Coordinates pulled directly from Google Maps for the neighborhood center.
-    const MAP_CENTER = [32.1143, 34.7852];
-    const DEFAULT_ZOOM = 15;
+    const MAP_CENTER = [32.1148, 34.7878];
+    const DEFAULT_ZOOM = 16;
 
     // -----------------------------------------------------------------
     // Property data. Adjust `coords` per listing when you have the
@@ -25,36 +25,36 @@
             title: 'פנטהאוז חדש לגמרי',
             location: 'רמת אביב גימל',
             price: '₪ 13,500,000',
-            status: 'sale',        // 'sale' | 'rent' | 'sold'
+            status: 'sale',
             badge: 'למכירה',
             image: 'images/gimel/gimel-8.jpg',
             link: 'property-gimel.html',
             coords: [32.1168, 34.7948]
         },
         {
-            title: 'דירת גן יוקרתית בבניין בוטיק',
+            title: 'רחוב אמיר גלבוע',
             location: 'רמת אביב החדשה',
             price: '₪ 11,500,000',
             status: 'sale',
             badge: 'בלעדיות',
             image: 'images/bien4/gan-cover.jpg',
             link: 'property-gan.html',
-            coords: [32.1165, 34.7945]
+            coords: [32.11665, 34.78805]
         },
         {
-            title: 'דירת 5 חדרים בבלעדיות',
+            title: 'רחוב יובל נאמן 3',
             location: 'רמת אביב החדשה',
             price: '₪ 6,300,000',
             status: 'sale',
             badge: 'בלעדיות',
             image: 'images/einstein/einstein-cover.jpg',
             link: 'property-einstein.html',
-            // Near Einstein St, Ramat Aviv Gimel / Nofei Yam
-            coords: [32.1172, 34.7940]
+            // Prof Yuval Ne'eman St 3 - Exact coordinates: 32°06'45.7"N 34°47'11.7"E
+            coords: [32.1127, 34.7865]
         },
         {
-            title: 'בלעדיות חדשה | דופלקס פנטהאוז נדיר',
-            location: 'ישה חפץ 11, רמת אביב החדשה',
+            title: 'רחוב ישה חפץ 11',
+            location: 'רמת אביב החדשה',
             price: '₪ 11,500,000',
             status: 'sale',
             badge: 'בלעדיות',
@@ -64,15 +64,15 @@
             coords: [32.1168, 34.7886]
         },
         {
-            title: 'דירת 3.5 חדרים ענקית',
+            title: 'רחוב יחזקאל שטרייכמן',
             location: 'רמת אביב החדשה',
             price: '₪ 4,500,000',
             status: 'sale',
             badge: 'למכירה',
             image: 'images/bien3/sheket-cover.jpg',
             link: 'property-sheket.html',
-            // Near Einstein St, Ramat Aviv Gimel / Nofei Yam
-            coords: [32.1160, 34.7935]
+            // Yehezkel Streichman St, Ramat Aviv HaChadasha / Nofey Yam
+            coords: [32.1135, 34.7876]
         },
         {
             title: 'מיני פנטהאוז בגוש הגדול / נופי ים',
@@ -104,11 +104,12 @@
             badge: 'נמכר',
             image: 'images/yuval/yuval-cover.jpg',
             link: 'property-yuval.html',
-            // Prof Yuval Ne'eman St 3 - Exact coordinates: 32°06'45.7"N 34°47'11.7"E
-            coords: [32.1127, 34.7865]
+            // Prof Yuval Ne'eman St 3 - same building as the for-sale listing above
+            // (different unit) - slightly offset so both pins are clickable
+            coords: [32.1129, 34.7867]
         },
         {
-            title: 'אמיר גלבוע 7',
+            title: 'רחוב אמיר גלבוע 7',
             location: 'רמת אביב החדשה',
             price: '₪ 8,800,000',
             status: 'sale',
