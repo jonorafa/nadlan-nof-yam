@@ -3504,13 +3504,13 @@ a.wishlist-item:hover {
     /* Below 900px the header switches to a stacked (logo above nav)
        layout and gets noticeably taller - the hero needs much more
        clearance here than on desktop or it gets covered by the header. */
-    .estim-hero { padding-top: 290px; }
+    .estim-hero { padding-top: 340px; }
 }
 
 @media (max-width: 600px) {
     /* Narrower still, the nav also wraps onto two lines, making the
        stacked header taller again. */
-    .estim-hero { padding-top: 330px; }
+    .estim-hero { padding-top: 420px; }
     .estim-hero h1 { font-size: 2.1rem; }
     .estim-blob { width: 200px; height: 200px; margin: -10px; }
     .estim-blob .result-amount { font-size: 1.6rem; }
