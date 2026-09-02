@@ -234,12 +234,12 @@ img {
    Nudged slightly toward the logo/hamburger per client request, by
    about the width of "מכירה" (~40px). */
 .header-logo-group + .header-nav {
-    margin-left: 80px;
+    margin-left: 20px;
 }
 
 .header-nav ul {
     display: flex;
-    gap: 28px;
+    gap: 18px;
     row-gap: 10px;
     flex-wrap: wrap;
     justify-content: center;

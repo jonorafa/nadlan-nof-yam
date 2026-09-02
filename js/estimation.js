@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         type: null,
         neighborhood: null,
         street: '',
-        houseNumber: '',
         floor: 0,
         buildingFloors: 0,
         surface: null,
@@ -142,10 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const streetInput = document.getElementById('estimStreet');
     if (streetInput) streetInput.addEventListener('input', () => { state.street = streetInput.value; });
-    const houseNumberInput = document.getElementById('estimHouseNumber');
-    if (houseNumberInput) houseNumberInput.addEventListener('input', () => { state.houseNumber = houseNumberInput.value; });
 
-    // Track the floor the user actually asked for separately from state.floor
+// Track the floor the user actually asked for separately from state.floor
     // (which gets clamped to the building's height) - so if they raise the
     // building's floor count back up, their original choice can be restored
     // instead of getting stuck at whatever it was clamped down to along the way.
@@ -312,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const addressLine = document.getElementById('estimResultAddress');
         if (addressLine) {
-            const parts = [state.street, state.houseNumber].filter(Boolean).join(' ');
+            const parts = [state.street].filter(Boolean).join(' ');
             addressLine.textContent = parts || (isEn ? 'Your property' : 'הנכס שלכם');
         }
 
@@ -333,8 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ].filter(Boolean).join(' | ');
 
         const waMsg = isEn
-            ? `Hi, I'd like to schedule a meeting about my property valuation.\n${propertyLine}\nAddress: ${state.street} ${state.houseNumber}\nEstimated range: ${result ? formatILS(result.low) + ' - ' + formatILS(result.high) : ''}`
-            : `שלום, אשמח לקבוע פגישה לגבי הערכת השווי של הנכס שלי.\n${propertyLine}\nכתובת: ${state.street} ${state.houseNumber}\nטווח משוער: ${result ? formatILS(result.low) + ' - ' + formatILS(result.high) : ''}`;
+            ? `Hi, I'd like to schedule a meeting about my property valuation.\n${propertyLine}\nAddress: ${state.street}\nEstimated range: ${result ? formatILS(result.low) + ' - ' + formatILS(result.high) : ''}`
+            : `שלום, אשמח לקבוע פגישה לגבי הערכת השווי של הנכס שלי.\n${propertyLine}\nכתובת: ${state.street}\nטווח משוער: ${result ? formatILS(result.low) + ' - ' + formatILS(result.high) : ''}`;
 
         const waLink = document.getElementById('estimWhatsappBtn');
         if (waLink) waLink.href = 'https://wa.me/972584008292?text=' + encodeURIComponent(waMsg);
@@ -351,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `${isEn ? 'Email' : 'אימייל'}: ${state.email}`,
                     `${isEn ? 'Nature' : 'סוג עסקה'}: ${state.nature}`,
                     `${isEn ? 'Type' : 'סוג נכס'}: ${state.type}`,
-                    `${isEn ? 'Address' : 'כתובת'}: ${state.street} ${state.houseNumber}, ${state.neighborhood || ''}`,
+                    `${isEn ? 'Address' : 'כתובת'}: ${state.street}, ${state.neighborhood || ''}`,
                     `${isEn ? 'Floor' : 'קומה'}: ${state.floor} / ${state.buildingFloors}`,
                     `${isEn ? 'Surface' : 'שטח'}: ${state.surface} מ"ר`,
                     `${isEn ? 'Rooms' : 'חדרים'}: ${state.rooms}`,
