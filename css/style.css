@@ -227,21 +227,11 @@ img {
     justify-content: center;
 }
 
-/* On pages with the hamburger menu button (home + EN), keep the nav
-   clear of it - the button sits right at the boundary with the logo
-   group and can overlap the first nav item at mid-range widths. */
-.header-logo-group + .header-nav {
-    margin-right: 48px;
-}
-
-/* At wider screens there's ample unused space next to the wishlist
-   button (now reclaimed above) - push the nav further from the
-   hamburger there, per client request (~3cm / 140px clearance). */
-@media (min-width: 1300px) {
-    .header-logo-group + .header-nav {
-        margin-right: 140px;
-    }
-}
+/* .header-logo-group and .header-actions are both sized to their own
+   content (see below), so .header-nav's box runs exactly between them
+   and justify-content: center on it keeps the nav equidistant from
+   the hamburger on one side and the wishlist button on the other -
+   no extra margin needed here. */
 
 .header-nav ul {
     display: flex;
