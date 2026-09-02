@@ -3061,3 +3061,428 @@ a.wishlist-item:hover {
     min-width: 40px;
     text-align: center;
 }
+
+/* ===== ESTIMATION WIZARD ===== */
+.estim-hero {
+    background-color: #f2efe9;
+    padding: 100px 0 60px;
+    text-align: center;
+}
+
+.estim-hero h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.estim-hero p {
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.estim-wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+}
+
+/* Stepper */
+.estim-stepper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.estim-stepper-dot {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    background: #fff;
+    transition: var(--transition-smooth);
+}
+
+.estim-stepper-dot.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.estim-stepper-dot.done {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.estim-stepper-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,0.12);
+    margin: 0 6px;
+}
+
+.estim-stepper-line.done {
+    background: var(--color-primary);
+}
+
+/* Step panels */
+.estim-step {
+    display: none;
+}
+
+.estim-step.active {
+    display: block;
+    animation: estimFadeIn 0.35s ease;
+}
+
+@keyframes estimFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.estim-field-group {
+    margin-bottom: 40px;
+}
+
+.estim-field-label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-text);
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.estim-field-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.estim-field-row > * {
+    flex: 1;
+    min-width: 180px;
+}
+
+.estim-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    background: transparent;
+    padding: 10px 0;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.estim-input:focus {
+    border-color: var(--color-secondary);
+}
+
+.estim-input::placeholder {
+    color: rgba(0,0,0,0.25);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.estim-hint {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    margin-top: 6px;
+}
+
+/* Toggle pair (sale/rent, yes/no) */
+.estim-toggle-pair {
+    display: flex;
+    gap: 12px;
+}
+
+.estim-toggle-pair .estim-chip {
+    flex: 1;
+    text-align: center;
+}
+
+.estim-chip {
+    padding: 12px 20px;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    background: #fff;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.estim-chip:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.estim-chip.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+/* Choice cards (property type, highlights) */
+.estim-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.estim-choice-card {
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: #fff;
+    padding: 24px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.estim-choice-card:hover {
+    border-color: var(--color-secondary);
+}
+
+.estim-choice-card.active {
+    border-color: var(--color-primary);
+    background: var(--color-bg);
+}
+
+.estim-choice-card svg {
+    width: 34px;
+    height: 34px;
+    stroke: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.estim-choice-card span {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+/* Numeric stepper (+/- input) */
+.estim-stepper-input {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.estim-stepper-input button {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.estim-stepper-input button:hover {
+    background: var(--color-secondary);
+    color: #fff;
+}
+
+.estim-stepper-input input {
+    flex: 1;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1.3rem;
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.estim-stepper-input input::-webkit-outer-spin-button,
+.estim-stepper-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Nav buttons */
+.estim-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.estim-btn-back {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.estim-btn-next {
+    padding: 16px 44px;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.estim-btn-next:hover {
+    background: var(--color-secondary);
+}
+
+.estim-required-note {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin-top: 40px;
+}
+
+.estim-error-msg {
+    color: var(--color-error);
+    font-size: 0.85rem;
+    margin-top: 10px;
+    display: none;
+}
+
+.estim-error-msg.visible {
+    display: block;
+}
+
+/* Result screen */
+.estim-result {
+    display: none;
+    text-align: center;
+}
+
+.estim-result.active {
+    display: block;
+    animation: estimFadeIn 0.5s ease;
+}
+
+.estim-result-address {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    margin-bottom: 50px;
+}
+
+.estim-blobs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.estim-blob {
+    width: 260px;
+    height: 260px;
+    background-color: #EFECE6;
+    border-radius: 41% 59% 49% 51% / 46% 40% 60% 54%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: -20px;
+}
+
+.estim-blob.high {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.estim-blob.high .result-label {
+    color: rgba(255,255,255,0.7);
+}
+
+.estim-disclaimer {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    max-width: 560px;
+    margin: 10px auto 40px;
+    line-height: 1.6;
+}
+
+.estim-result-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.estim-result-actions a,
+.estim-result-actions button {
+    padding: 16px 32px;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.estim-result-actions a:hover,
+.estim-result-actions button:hover {
+    background: var(--color-secondary);
+}
+
+.estim-result-actions .estim-secondary-btn {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
+}
+
+.estim-result-actions .estim-secondary-btn:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.estim-thankyou {
+    display: none;
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--color-bg);
+    border: 1px solid rgba(0,0,0,0.08);
+    font-size: 0.95rem;
+    color: var(--color-text);
+}
+
+.estim-thankyou.visible {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .estim-hero h1 { font-size: 2.1rem; }
+    .estim-blob { width: 200px; height: 200px; margin: -10px; }
+    .estim-blob .result-amount { font-size: 1.6rem; }
+    .estim-choice-grid { grid-template-columns: repeat(2, 1fr); }
+}

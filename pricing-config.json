@@ -1,0 +1,35 @@
+{
+  "_readme": "Configuration du calcul d'estimation (page estimation.html). Modifiable sans toucher au code. Tous les coefficients sont des multiplicateurs (1.05 = +5%). rangeSpread définit l'écart entre le prix bas et le prix haut affichés (0.12 = ±12% autour du prix central).",
+
+  "neighborhoods": {
+    "נופי ים": { "pricePerSqm": 45000 },
+    "רמת אביב החדשה": { "pricePerSqm": 42000 },
+    "רמת אביב גימל": { "pricePerSqm": 40000 },
+    "אחר": { "pricePerSqm": 38000 }
+  },
+
+  "propertyTypeCoefficient": {
+    "דירה": 1.0,
+    "בית פרטי": 1.18,
+    "דירת גן": 1.08,
+    "פנטהאוז": 1.22
+  },
+
+  "coefficients": {
+    "highFloor": { "minFloor": 4, "multiplier": 1.05 },
+    "groundFloor": { "multiplier": 0.96 },
+    "elevator": 1.03,
+    "renovated": 1.07,
+    "safeRoom": 1.02,
+    "balcony": 1.03,
+    "parking": 1.04,
+    "extraParkingSpot": 1.015,
+    "seaView": 1.12,
+    "quiet": 1.02,
+    "bright": 1.02,
+    "newBuilding": { "afterYear": 2015, "multiplier": 1.05 },
+    "oldBuilding": { "beforeYear": 1980, "multiplier": 0.94 }
+  },
+
+  "rangeSpread": 0.1
+}
