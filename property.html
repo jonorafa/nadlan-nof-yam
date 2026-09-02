@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .header { background-color: rgba(252, 251, 249, 0.98) !important; border-bottom: 1px solid rgba(0,0,0,0.05); } 
-        .header .header-nav a, .header .lang-switch, .header .header-icon-link { color: var(--color-primary) !important; }
+        .header .header-nav a, .header .lang-switch, .header .header-icon-link, .header .wishlist-header-btn { color: var(--color-primary) !important; }
+        .header .menu-hamburger-btn span { background: var(--color-primary) !important; }
         .header-logo a { color: var(--color-primary) !important; }
         .header-logo img { filter: none !important; }
     </style>
@@ -21,10 +22,17 @@
     <!-- Header Navigation -->
     <header class="header" id="header">
         <div class="header-container">
-            <div class="header-logo">
-                <a href="index.html">
-                    <img src="images/site/logo.png" alt="נדל״ן נוף ים">
-                </a>
+            <div class="header-logo-group">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img src="images/site/logo.png" alt="נדל״ן נוף ים">
+                    </a>
+                </div>
+                <button class="menu-hamburger-btn" id="menuHamburgerBtn" aria-label="תפריט ראשי" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
             <nav class="header-nav">
                 <ul>
@@ -44,6 +52,14 @@
                 <a href="https://wa.me/972584008292" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="header-icon-link" id="headerWhatsappLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zM223.9 438.8c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
                 </a>
+                <a href="https://www.linkedin.com/in/nadlan-nof-yam-7b10b0433/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="header-icon-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zm-46.44-341C24.09 107 0 82.94 0 53.51a53.51 53.51 0 0 1 107 0c0 29.43-24.1 53.49-53.16 53.49zM447.9 448h-92.68V302.4c0-34.7-.7-79.3-48.29-79.3-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3z"/></svg>
+                </a>
+                <button class="wishlist-header-btn" id="wishlistHeaderBtn" aria-label="מועדפים">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span>מועדפים</span>
+                    <span class="wishlist-count-badge" id="wishlistCountBadge"></span>
+                </button>
             </div>
             </div>
         </div>
@@ -84,22 +100,6 @@
                 <h1 class="property-page-title">פנטהאוז יוקרתי ברמת אביב</h1>
                 <p class="property-page-location">רחוב איינשטיין, צפון תל אביב</p>
 
-                <!-- Share this property -->
-                <div class="property-share" aria-label="שתף נכס">
-                    <span class="property-share__label">שתף:</span>
-                    <button type="button" class="property-share__btn" data-share="whatsapp" aria-label="WhatsApp">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zM223.9 438.8c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                    </button>
-                    <button type="button" class="property-share__btn" data-share="email" aria-label="אימייל">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
-                    </button>
-                    <button type="button" class="property-share__btn" data-share="copy" aria-label="העתק קישור">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
-                    </button>
-                    <button type="button" class="property-share__btn" data-share="native" aria-label="שיתוף">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
-                    </button>
-                </div>
                 
                 <div class="property-key-features">
                     <div class="key-feature"><span>5</span> חדרים</div>
@@ -137,6 +137,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Share this property -->
+                <div class="property-share" aria-label="שתף נכס">
+                    <span class="property-share__label">שתף:</span>
+                    <button type="button" class="property-share__btn" data-share="whatsapp" aria-label="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zM223.9 438.8c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                    </button>
+                    <button type="button" class="property-share__btn" data-share="email" aria-label="אימייל">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+                    </button>
+                    <button type="button" class="property-share__btn" data-share="copy" aria-label="העתק קישור">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+                    </button>
+                    <button type="button" class="property-share__btn" data-share="native" aria-label="שיתוף">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z"/></svg>
+                    </button>
                 </div>
 
                 <!-- Mortgage Calculator Module -->
@@ -264,6 +281,64 @@
             </div>
         </div>
     </footer>
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlistModal" style="display:none;">
+        <div class="wishlist-modal-overlay" id="wishlistModalOverlay"></div>
+        <div class="wishlist-modal-box">
+            <div class="wishlist-modal-header">
+                <h3>המועדפים שלי</h3>
+                <button class="wishlist-modal-close" id="wishlistModalClose">✕</button>
+            </div>
+            <div class="wishlist-modal-body" id="wishlistModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Main Menu Drawer -->
+    <div class="menu-drawer" id="menuDrawer" aria-hidden="true">
+        <div class="menu-drawer-overlay" id="menuDrawerOverlay"></div>
+        <aside class="menu-drawer-panel" role="dialog" aria-label="תפריט ראשי">
+            <div class="menu-drawer-header">
+                <div class="menu-drawer-logo">
+                    <img src="images/site/logo.png" alt="נדל״ן נוף ים">
+                </div>
+                <button class="menu-drawer-close" id="menuDrawerClose" aria-label="סגור תפריט">✕</button>
+            </div>
+
+            <nav class="menu-drawer-nav">
+                <span class="menu-drawer-section-label">ניווט</span>
+                <ul>
+                    <li><a href="index.html#home" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5M6 10v9h5v-5h2v5h5v-9"/></svg></span><span>דף הבית</span></a></li>
+                    <li><a href="index.html#sale" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 12.5 18 4M15 6l2 2M17.5 3.5l1.5 1.5M10.2 15a3 3 0 1 1 0-6"/></svg></span><span>נכסים למכירה</span></a></li>
+                    <li><a href="index.html#rent" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3h14v18M9 21v-4h6v4M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1"/></svg></span><span>נכסים להשכרה</span></a></li>
+                    <li><a href="estimation.html" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V3h16v18M4 21h16M8 8h2v2H8zM14 8h2v2h-2zM8 13h2v2H8zM14 13h2v2h-2z"/><path d="M20 12l-5-5"/></svg></span><span>הערכת שווי</span></a></li>
+                    <li><a href="index.html#team" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6M16 6.5a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8M3 20v-.6c0-2.7 2.2-4.9 4.9-4.9h1.4c1.2 0 2.3.5 3.1 1.2M14.5 20v-1.1c0-1.8 1.3-3.3 3.1-3.5 1.9-.2 3.6 1.3 3.6 3.1V20"/></svg></span><span>הצוות שלנו</span></a></li>
+                    <li><a href="index.html#neighborhood" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.7-6-10.2A6 6 0 1 1 18 10.8C18 15.3 12 21 12 21M10 11a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/></svg></span><span>על השכונה</span></a></li>
+                    <li><a href="index.html#contact" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg></span><span>צור קשר</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-drawer-section">
+                <span class="menu-drawer-section-label">שירותים</span>
+                <ul>
+                    <li><button class="menu-drawer-link menu-drawer-btn" id="menuOpenWishlist"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.8-9.4C.8 7.6 2.4 4.2 5.9 3.6c2-.4 3.9.6 5.1 2.3 1.2-1.7 3.1-2.7 5.1-2.3 3.5.6 5.1 4 3.7 7.5-2.3 4.6-9.8 9.4-9.8 9.4z"/></svg></span><span>המועדפים שלי</span><span class="menu-drawer-badge" id="menuDrawerWishlistCount"></span></button></li>
+                    <li><a href="index.html#map" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18M15.2 8.8l-1.8 5.4-5.4 1.8 1.8-5.4z"/></svg></span><span>הנכסים על המפה</span></a></li>
+                    <li><a href="index.html#mortgage" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v11H3zM10 9.5a3 3 0 1 0 4 4.6 3 3 0 0 0-4-4.6M6 9v1M18 14v1"/></svg></span><span>חישוב משכנתא</span></a></li>
+                </ul>
+            </div>
+
+            <div class="menu-drawer-contact">
+                <span class="menu-drawer-section-label">צור קשר ישיר</span>
+                <a href="tel:+972584008292" class="menu-contact-item">
+                    <span class="menu-link-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg></span>
+                    <div>
+                        <strong>סופיה</strong>
+                        <span style="direction:ltr;display:block;">058-400-8292</span>
+                    </div>
+                </a>
+            </div>
+        </aside>
+    </div>
 
     <!-- Scripts -->
     <script src="js/script.js"></script>
