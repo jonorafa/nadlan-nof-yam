@@ -65,13 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function showStep(n) {
+    function showStep(n, scroll = true) {
         document.querySelectorAll('.estim-step').forEach(step => {
             step.classList.toggle('active', parseInt(step.dataset.step, 10) === n);
         });
         currentStep = n;
         renderStepper();
-        wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (scroll) {
+            wizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     }
 
     // ---------- Toggle / choice helpers ----------
@@ -345,5 +347,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    showStep(1);
+    showStep(1, false);
 });
