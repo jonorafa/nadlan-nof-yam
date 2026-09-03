@@ -491,6 +491,15 @@ img {
     max-width: 300px;
 }
 
+.team-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 3px solid #f0ece6;
+}
+
 .team-image {
     width: 240px;
     height: 320px;
@@ -1583,7 +1592,14 @@ html[dir="rtl"] .carousel-counter {
     .neighborhood-feature.reverse {
         flex-direction: column-reverse; /* Allows text to be below image when reversed on mobile */
     }
+    /* .neighborhood-image has flex:1 (flex-basis:0%) on desktop, which in a
+       column-direction flex parent makes height the main-axis size, so it's
+       resolved from flex-basis instead - since the div has no content of
+       its own and the parent has no extra height to grow it into, it was
+       collapsing to 0 regardless of the height set here. flex:none makes
+       height actually apply. */
     .neighborhood-image {
+        flex: none;
         width: 100%;
         height: 350px;
     }
@@ -1623,6 +1639,34 @@ html[dir="rtl"] .carousel-counter {
     }
     .section-title {
         font-size: 1.9rem;
+    }
+    /* Two 300px-max cards with a 60px gap need ~660px, so they were
+       wrapping into a stacked column on any phone. Shrink everything
+       enough that both fit side by side instead. */
+    .team-grid {
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        gap: 14px;
+    }
+    .team-card {
+        max-width: none;
+        min-width: 0;
+        flex: 1;
+    }
+    .team-avatar {
+        width: 96px;
+        height: 96px;
+        margin-bottom: 12px;
+    }
+    .team-name {
+        font-size: 1.2rem;
+    }
+    .team-role {
+        font-size: 0.78rem;
+    }
+    .team-contact {
+        font-size: 0.72rem;
+        word-break: break-word;
     }
     .properties-grid {
         grid-template-columns: 1fr;
