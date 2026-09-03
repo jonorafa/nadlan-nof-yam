@@ -131,8 +131,16 @@ img {
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    /* Equal 1fr side columns keep the middle (nav) column truly centered
+       on the header regardless of whether the side column is a single
+       button (home) or a full row of social icons (property/estimation
+       pages) - each 1fr track still grows to fit its own content, it
+       just never steals space from the other side unevenly. minmax(...)
+       floors each side column at its own natural width so a plain 1fr
+       can't shrink the logo/hamburger or the icon row below their real
+       size and force them to spill into the nav column. */
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -222,20 +230,15 @@ img {
 }
 
 .header-nav {
-    flex: 2;
     display: flex;
     justify-content: center;
 }
 
-/* .header-logo-group and .header-actions are both sized to their own
-   content (see below), so .header-nav's box runs exactly between them
-   and justify-content: center on it keeps the nav equidistant from
-   the hamburger on one side and the wishlist button on the other.
-   Nudged slightly toward the logo/hamburger per client request, by
-   about the width of "מכירה" (~40px). */
-.header-logo-group + .header-nav {
-    margin-left: 20px;
-}
+/* .header-container is a 1fr/auto/1fr grid, so the nav's column is
+   already centered on the header itself - not on the space between the
+   logo and actions blocks - meaning it sits in the exact same spot on
+   every page, whether the actions block is a single button (home) or a
+   full row of social icons (property/estimation pages). */
 
 .header-nav ul {
     display: flex;
@@ -1584,6 +1587,7 @@ html[dir="rtl"] .carousel-counter {
         height: 350px;
     }
     .header-container {
+        display: flex;
         flex-direction: column;
         gap: 15px;
     }
@@ -3346,6 +3350,10 @@ a.wishlist-item:hover {
     color: var(--color-text);
     margin-bottom: 14px;
     font-weight: 600;
+}
+
+.estim-required-star {
+    color: #d3273e;
 }
 
 .estim-field-row {

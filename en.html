@@ -20,8 +20,14 @@
         .property-location::before { margin-right: 6px; margin-left: 0; }
         .property-features span:not(:last-child)::after { margin: 0 15px 0 0; }
         .contact-details strong { margin-right: 10px; margin-left: 0; }
-        /* Mirror Hebrew layout: logo-group on right, actions on left */
-        .header-container { flex-direction: row-reverse; }
+        /* Mirror Hebrew layout: logo-group on right, actions on left.
+           .header-container is a CSS grid (see css/style.css), so the
+           mirroring has to flip its column direction, not flex-direction.
+           direction inherits, so it's reset back to ltr on the children
+           below - only the grid's own column order should flip, not the
+           reading order of the nav links or the icon row. */
+        .header-container { direction: rtl; }
+        .header-logo-group, .header-nav, .header-actions { direction: ltr; }
         .header-logo-group { flex-direction: row-reverse; }
         .header-actions { justify-content: flex-start; }
     </style>
