@@ -1587,10 +1587,13 @@ html[dir="rtl"] .carousel-counter {
         width: 100%;
         height: 350px;
     }
-    .header-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+    /* Below this width there's no room for the full link list next to the
+       logo and the icon row, so it doubles up with the hamburger instead
+       of replacing it (every link is also in the hamburger's menu-drawer).
+       Hide it and let the grid's two side columns (see .header-container)
+       sit in a single clean row instead of wrapping across several lines. */
+    .header-nav {
+        display: none;
     }
     .header-empty {
         display: none;
@@ -1601,14 +1604,25 @@ html[dir="rtl"] .carousel-counter {
     .contact-grid {
         grid-template-columns: 1fr;
     }
-    .header-nav ul {
-        gap: 20px;
-    }
 }
 
 @media (max-width: 600px) {
+    /* On property/estimation pages .header-lang holds a full row of social
+       icons (~195-240px) - added to the logo+hamburger block (~185-235px)
+       that's more than the ~295-350px the grid columns actually have to
+       share on a phone-width screen, so it was overflowing off the left
+       edge. Stack them into two centered rows instead of forcing one. */
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
     .hero-title {
         font-size: 2.2rem;
+    }
+    .section-title {
+        font-size: 1.9rem;
     }
     .properties-grid {
         grid-template-columns: 1fr;
@@ -2240,6 +2254,20 @@ html[dir="rtl"] .carousel-counter {
     border-color: var(--color-secondary);
     color: var(--color-secondary);
     box-shadow: 0 4px 16px rgba(155,130,98,0.2);
+}
+
+/* .filter-toggle-btn is pinned with position:absolute so it can sit
+   beside the centered title on wide screens - at this width the title
+   is wide enough to reach that edge and the button overlaps/clips it.
+   Drop it back into normal flow, stacked under the title instead. */
+@media (max-width: 600px) {
+    .section-filter-header {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .filter-toggle-btn {
+        position: static;
+    }
 }
 
 .active-filter-count {
