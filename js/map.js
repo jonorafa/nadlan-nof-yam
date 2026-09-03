@@ -239,10 +239,10 @@
     // -----------------------------------------------------------------
     const agencyIcon = L.divIcon({
         className: '',
-        html: `<div class="agency-marker"></div>`,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -35]
+        html: `<div class="agency-marker"><span class="agency-marker-badge"></span></div>`,
+        iconSize: [42, 42],
+        iconAnchor: [21, 42],
+        popupAnchor: [0, -37]
     });
 
     const agencyMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('אמיר גלבוע 12, תל אביב');
