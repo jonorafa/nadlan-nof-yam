@@ -1614,6 +1614,54 @@ html[dir="rtl"] .carousel-counter {
     .header-empty {
         display: none;
     }
+    /* Compact single-line header: hamburger + logo + EN pill (+ a tight
+       icon row on the pages that carry one). The 120px desktop logo and
+       40px side padding are what made the mobile header 300px+ tall. */
+    .header {
+        padding: 10px 0;
+    }
+    /* The desktop 1fr/auto/1fr grid floors each side column at its own
+       max-content width, so it refuses to compress and pushes the header
+       wider than a phone screen (which on RTL opens the page scrolled
+       sideways). With the nav hidden there's nothing left to centre, so a
+       plain flex row is both simpler and shrinkable. */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 14px;
+    }
+    .header-logo img,
+    .header.scrolled .header-logo img {
+        max-height: 52px;
+    }
+    .header-logo-group {
+        gap: 10px;
+    }
+    /* index/en carry only the favourites button here, and the drawer has
+       its own "My favourites" entry, so it's safe to drop entirely. */
+    .header-actions {
+        display: none;
+    }
+    /* Property/estimation pages carry Instagram/WhatsApp/LinkedIn here and
+       their drawer has no social row, so these stay reachable - just
+       tightened to icon-only so the row fits on one line. */
+    .header-contact-icons {
+        gap: 10px;
+    }
+    .header-contact-icons .header-icon-link svg {
+        width: 18px;
+        height: 18px;
+    }
+    .wishlist-header-btn span:not(.wishlist-count-badge) {
+        display: none;
+    }
+    /* These offsets clear the fixed header. They were sized for the old
+       tall stacked mobile header (logo + wrapped nav); with the compact
+       one above they left a large empty band under it. */
+    .property-gallery-header {
+        margin-top: 88px;
+    }
     .hero-title {
         font-size: 3rem;
     }
@@ -1622,23 +1670,43 @@ html[dir="rtl"] .carousel-counter {
     }
 }
 
-@media (max-width: 600px) {
-    /* On property/estimation pages .header-lang holds a full row of social
-       icons (~195-240px) - added to the logo+hamburger block (~185-235px)
-       that's more than the ~295-350px the grid columns actually have to
-       share on a phone-width screen, so it was overflowing off the left
-       edge. Stack them into two centered rows instead of forcing one. */
-    .header-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
+/* Phone/large-phone tier. Desktop type scale (2.9rem section titles,
+   3.5rem property titles) overflows and collides with anything pinned
+   beside it at this width. Tablet (769-900px) keeps the larger sizes. */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
     }
+    .hero-title {
+        font-size: 2.6rem;
+    }
+    .property-page-title {
+        font-size: 2.2rem;
+    }
+    .properties-grid {
+        grid-template-columns: 1fr;
+    }
+    /* content(2.2fr) + sidebar(1fr) + an 80px gap can't fit here: neither
+       flex item can shrink under its own min-content, so the sidebar was
+       hanging off the edge. Stack them, and drop the sticky pin with it. */
+    .property-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .property-sidebar {
+        width: 100%;
+    }
+    .property-sidebar-card.sticky {
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
     .hero-title {
         font-size: 2.2rem;
     }
     .section-title {
-        font-size: 1.9rem;
+        font-size: 1.7rem;
     }
     /* Two 300px-max cards with a 60px gap need ~660px, so they were
        wrapping into a stacked column on any phone. Shrink everything
@@ -1667,9 +1735,6 @@ html[dir="rtl"] .carousel-counter {
     .team-contact {
         font-size: 0.72rem;
         word-break: break-word;
-    }
-    .properties-grid {
-        grid-template-columns: 1fr;
     }
 .footer-bottom {
         flex-direction: column;
@@ -1705,7 +1770,30 @@ html[dir="rtl"] .carousel-counter {
         height: 250px;
     }
     .result-amount { font-size: 2.2rem; }
-    .property-page-title { font-size: 2.5rem; }
+    .property-page-title { font-size: 2rem; }
+}
+
+/* Small phones (iPhone SE / mini). One more step down so long Hebrew
+   headings don't wrap into four lines or run into the screen edge. */
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .hero-title {
+        font-size: 2rem;
+    }
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+    .property-page-title {
+        font-size: 1.75rem;
+    }
+    .team-name {
+        font-size: 1.05rem;
+    }
+    .result-amount {
+        font-size: 1.9rem;
+    }
 }
 
 /* WHATSAPP FLOAT BUTTON */
@@ -1794,6 +1882,16 @@ html[dir="rtl"] .carousel-counter {
     font-size: 0.9rem;
     margin-top: 18px;
     font-style: italic;
+}
+
+/* The inline bulb icon carries no width/height attribute and nothing was
+   sizing it, so it fell back to the default replaced-element size (~212px)
+   - which is what was pushing the whole page sideways on a phone. */
+.map-hint svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: -3px;
+    margin-left: 6px;
 }
 
 /* Custom property marker (a small pin with a colored core) */
@@ -2243,6 +2341,24 @@ html[dir="rtl"] .carousel-counter {
     flex-shrink: 0;
 }
 
+/* Mobile header trim. These live here rather than with the other mobile
+   rules because .header-actions/.wishlist-header-btn are declared further
+   down the file than that media block, so an earlier override would lose
+   the cascade tie. */
+@media (max-width: 900px) {
+    /* index/en only hold the favourites button here and the drawer has
+       its own "My favourites" entry, so the row is redundant. */
+    .header-actions {
+        display: none;
+    }
+    /* Property/estimation pages keep Instagram/WhatsApp/LinkedIn here
+       (their drawer has no social row) - icon-only so it stays on one line. */
+    .wishlist-header-btn {
+        padding: 6px;
+        gap: 0;
+    }
+}
+
 .wishlist-count-badge {
     background: var(--color-secondary);
     color: white;
@@ -2304,7 +2420,7 @@ html[dir="rtl"] .carousel-counter {
    beside the centered title on wide screens - at this width the title
    is wide enough to reach that edge and the button overlaps/clips it.
    Drop it back into normal flow, stacked under the title instead. */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .section-filter-header {
         flex-direction: column;
         gap: 14px;
@@ -2688,6 +2804,10 @@ html[dir="rtl"] .carousel-counter {
     z-index: 9500;
     visibility: hidden;
     pointer-events: none;
+    /* The closed panel is parked off-screen with translateX(100%). Without
+       clipping it here, that translated box widens the page - which on an
+       RTL site shows up as the page opening scrolled to the right. */
+    overflow: hidden;
 }
 
 .menu-drawer.is-open {
@@ -3569,6 +3689,11 @@ a.wishlist-item:hover {
 
 .estim-stepper-input input {
     flex: 1;
+    /* An <input> has an intrinsic width (~220px) and flex items default to
+       min-width:auto, so flex:1 alone can't shrink it - two steppers side by
+       side then pushed the form wider than a phone screen. */
+    min-width: 0;
+    width: 100%;
     text-align: center;
     border: none;
     background: transparent;
@@ -3746,17 +3871,22 @@ a.wishlist-item:hover {
 }
 
 @media (max-width: 900px) {
-    /* Below 900px the header switches to a stacked (logo above nav)
-       layout and gets noticeably taller - the hero needs much more
-       clearance here than on desktop or it gets covered by the header. */
-    .estim-hero { padding-top: 340px; }
+    /* The 340/420px clearance here was sized for the old stacked mobile
+       header (logo above a wrapped nav). The header is a single compact
+       row now, so this only needs to clear ~72px of it. */
+    .estim-hero { padding-top: 110px; }
+    .estim-hero h1 { font-size: 2.3rem; }
 }
 
 @media (max-width: 600px) {
-    /* Narrower still, the nav also wraps onto two lines, making the
-       stacked header taller again. */
-    .estim-hero { padding-top: 420px; }
+    .estim-hero { padding-top: 100px; }
     .estim-hero h1 { font-size: 2.1rem; }
+    /* Two 180px minimums plus the 24px gap need 384px, more than a phone
+       has once the wizard's own padding is taken off - so a two-field row
+       was pushing the form wider than the screen. */
+    .estim-field-row > * {
+        min-width: 0;
+    }
     .estim-blob { width: 200px; height: 200px; margin: -10px; }
     .estim-blob .result-amount { font-size: 1.6rem; }
     .estim-choice-grid { grid-template-columns: repeat(2, 1fr); }
