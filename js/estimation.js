@@ -256,7 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const neighborhoodKey = state.neighborhood && cfg.neighborhoods[state.neighborhood]
             ? state.neighborhood
             : 'אחר';
-        let price = cfg.neighborhoods[neighborhoodKey].pricePerSqm * state.surface;
+        const neighborhood = cfg.neighborhoods[neighborhoodKey];
+        const pricePerSqm = state.year && state.year >= cfg.newBuildingAfterYear
+            ? neighborhood.pricePerSqmNew
+            : neighborhood.pricePerSqmOld;
+        let price = pricePerSqm * state.surface;
 
         price *= cfg.propertyTypeCoefficient[state.type] || 1;
 
@@ -280,13 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (state.highlights.includes('quiet')) price *= cfg.coefficients.quiet;
         if (state.highlights.includes('bright')) price *= cfg.coefficients.bright;
 
-        if (state.year) {
-            if (state.year >= cfg.coefficients.newBuilding.afterYear) {
-                price *= cfg.coefficients.newBuilding.multiplier;
-            } else if (state.year <= cfg.coefficients.oldBuilding.beforeYear) {
-                price *= cfg.coefficients.oldBuilding.multiplier;
-            }
-        }
+        const extraRooms = state.rooms - cfg.roomBonus.thresholdRooms;
+        if (extraRooms > 0) price += extraRooms * cfg.roomBonus.amountPerExtraRoom;
 
         const spread = cfg.rangeSpread;
         return {

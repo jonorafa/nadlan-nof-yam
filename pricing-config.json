@@ -1,12 +1,14 @@
 {
-  "_readme": "Configuration du calcul d'estimation (page estimation.html). Modifiable sans toucher au code. Tous les coefficients sont des multiplicateurs (1.05 = +5%). rangeSpread définit l'écart entre le prix bas et le prix haut affichés (0.12 = ±12% autour du prix central).",
+  "_readme": "Configuration du calcul d'estimation (page estimation.html). Modifiable sans toucher au code. Chaque quartier a deux prix au m² (neuf / ancien) - le seuil newBuildingAfterYear determine lequel utiliser. Les coefficients (hors quartiers) restent des multiplicateurs (1.05 = +5%). roomBonus.amountPerExtraRoom est un montant fixe en shekels, pas un multiplicateur. rangeSpread définit l'écart entre le prix bas et le prix haut affichés (0.2 = ±20% autour du prix central).",
 
   "neighborhoods": {
-    "נופי ים": { "pricePerSqm": 45000 },
-    "רמת אביב החדשה": { "pricePerSqm": 42000 },
-    "רמת אביב גימל": { "pricePerSqm": 40000 },
-    "אחר": { "pricePerSqm": 38000 }
+    "נופי ים": { "pricePerSqmNew": 50000, "pricePerSqmOld": 45500 },
+    "למד החדשה": { "pricePerSqmNew": 50000, "pricePerSqmOld": 45500 },
+    "רמת אביב גימל": { "pricePerSqmNew": 50000, "pricePerSqmOld": 43500 },
+    "אחר": { "pricePerSqmNew": 38000, "pricePerSqmOld": 38000 }
   },
+
+  "newBuildingAfterYear": 2015,
 
   "propertyTypeCoefficient": {
     "דירה": 1.0,
@@ -26,10 +28,13 @@
     "extraParkingSpot": 1.015,
     "seaView": 1.12,
     "quiet": 1.02,
-    "bright": 1.02,
-    "newBuilding": { "afterYear": 2015, "multiplier": 1.05 },
-    "oldBuilding": { "beforeYear": 1980, "multiplier": 0.94 }
+    "bright": 1.02
   },
 
-  "rangeSpread": 0.1
+  "roomBonus": {
+    "thresholdRooms": 2,
+    "amountPerExtraRoom": 1000000
+  },
+
+  "rangeSpread": 0.2
 }
