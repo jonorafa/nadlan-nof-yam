@@ -245,6 +245,15 @@ img {
     justify-content: center;
 }
 
+/* Wide screens have plenty of room between the logo and the actions,
+   so let the nav items breathe more than the tight fit needed around
+   ~1100-1300px (see .header-nav ul above). */
+@media (min-width: 1300px) {
+    .header-nav ul {
+        gap: 34px;
+    }
+}
+
 .header-nav a {
     font-size: 1.05rem;
     font-weight: 600;
