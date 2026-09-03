@@ -126,10 +126,10 @@
         title: 'משרד תיווך נוף ים',
         location: 'אמיר גלבוע 12',
         badge: 'משרד',
-        // Nudged ~35m south from the original geocode, per the client's Google Maps
-        // screenshot, to sit closer to the roundabout at the Amir Gilboa / Arnold
-        // Schoenberg Sq. junction - approximate, refine with a plus code if needed.
-        coords: [32.1160, 34.7877]
+        // Moved onto the actual "12" building itself, next to the small garden
+        // beside it - confirmed against both the OSM building footprint and a
+        // Nominatim geocode for "12, Amir Gilboa" (both agree within ~6m).
+        coords: [32.1163, 34.7875]
     };
 
     // -----------------------------------------------------------------
