@@ -322,10 +322,11 @@ img {
 }
 
 .hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 1px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* PROPERTIES GRID */
