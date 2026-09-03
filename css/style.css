@@ -287,7 +287,8 @@ img {
 
 /* HERO SECTION */
 .hero {
-    height: 100vh;
+    height: 100vh; /* fallback for browsers without dvh support */
+    height: 100dvh; /* tracks Safari iOS's address bar instead of overflowing under it */
     min-height: 600px;
     background-image: url('../images/gimel/gimel-8.jpg');
     background-size: cover;
@@ -2639,7 +2640,8 @@ html[dir="rtl"] .carousel-counter {
     position: absolute;
     top: 0;
     right: 0;
-    height: 100vh;
+    height: 100vh; /* fallback for browsers without dvh support */
+    height: 100dvh; /* tracks Safari iOS's address bar instead of overflowing under it */
     width: 100%;
     max-width: 400px;
     background: var(--color-bg);
