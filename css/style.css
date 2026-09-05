@@ -2891,6 +2891,16 @@ html[dir="rtl"] .carousel-counter {
     transform: translateX(0);
 }
 
+/* The English pages put the menu button on the left, so the panel has to
+   slide in from that side instead of the right. The open-state rule above
+   is more specific, so it still lands at translateX(0) either way. */
+html[dir="ltr"] .menu-drawer-panel {
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 20px 0 60px rgba(0,0,0,0.2);
+}
+
 .menu-drawer-header {
     display: flex;
     justify-content: space-between;

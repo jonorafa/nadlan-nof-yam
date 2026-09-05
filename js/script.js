@@ -131,7 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
         warningMessage = document.createElement('div');
         warningMessage.className = 'calc-warning-message';
         warningMessage.id = 'calc-warning-message';
-        warningMessage.textContent = 'רוב הבנקים דורשים הון עצמי של 25% לפחות';
+        warningMessage.textContent = (document.documentElement.lang || 'he').toLowerCase().startsWith('en')
+            ? 'Most banks require a down payment of at least 25%'
+            : 'רוב הבנקים דורשים הון עצמי של 25% לפחות';
 
         downpaymentInput.insertAdjacentElement('afterend', warningMessage);
         downpaymentInput.insertAdjacentElement('afterend', ratioIndicator);
@@ -149,7 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const belowMinRatio = price > 0 && ratio < MIN_DOWNPAYMENT_RATIO;
 
         if (ratioIndicator) {
-            ratioIndicator.textContent = price > 0 ? Math.round(ratio * 100) + '% מהמחיר' : '';
+            const ofPrice = (document.documentElement.lang || 'he').toLowerCase().startsWith('en')
+                ? '% of the price'
+                : '% מהמחיר';
+            ratioIndicator.textContent = price > 0 ? Math.round(ratio * 100) + ofPrice : '';
             ratioIndicator.classList.toggle('low', belowMinRatio);
         }
         if (warningMessage) {
@@ -579,9 +584,13 @@ function updatePriceSliderDisplay() {
     if (fill) { fill.style.left = leftPct + '%'; fill.style.right = rightPct + '%'; }
     const display = document.getElementById('priceRangeDisplay');
     if (display) {
-        if (min === 0 && max === BUDGET_MAX) display.textContent = 'הכל';
-        else if (min === 0)              display.textContent = 'עד ' + formatPriceShort(max);
-        else if (max === BUDGET_MAX)     display.textContent = 'מ-' + formatPriceShort(min);
+        const isEn = (document.documentElement.lang || 'he').toLowerCase().startsWith('en');
+        const all = isEn ? 'All' : 'הכל';
+        const upTo = isEn ? 'Up to ' : 'עד ';
+        const from = isEn ? 'From ' : 'מ-';
+        if (min === 0 && max === BUDGET_MAX) display.textContent = all;
+        else if (min === 0)              display.textContent = upTo + formatPriceShort(max);
+        else if (max === BUDGET_MAX)     display.textContent = from + formatPriceShort(min);
         else                             display.textContent = formatPriceShort(min) + ' – ' + formatPriceShort(max);
     }
 }
