@@ -1,9 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "nadlan-nof-yam.vercel.app" }],
-      "destination": "https://www.nadlan-nof-yam.co.il/:path*",
+      "destination": "https://www.nadlan-nof-yam.co.il/$1",
       "permanent": true
     }
   ]
