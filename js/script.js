@@ -623,13 +623,18 @@ function applyFilters() {
         }
         card.style.display = show ? '' : 'none';
     });
-    // No-results messages per grid
-    [['saleGrid','saleNoResults'], ['rentGrid','rentNoResults']].forEach(([gId, nId]) => {
+    // No-results messages per grid. A section with nothing listed at all is
+    // not the same as a filter that matched nothing - saying "no match for
+    // your filter" on an empty section just reads as broken.
+    [['saleGrid','saleNoResults','saleEmpty'], ['rentGrid','rentNoResults','rentEmpty']].forEach(([gId, nId, eId]) => {
         const grid = document.getElementById(gId);
+        if (!grid) return;
         const noRes = document.getElementById(nId);
-        if (!grid || !noRes) return;
-        const visible = grid.querySelectorAll('.property-link:not([style*="display: none"])');
-        noRes.style.display = visible.length === 0 ? 'block' : 'none';
+        const empty = document.getElementById(eId);
+        const total = grid.querySelectorAll('.property-link').length;
+        const visible = grid.querySelectorAll('.property-link:not([style*="display: none"])').length;
+        if (empty) empty.style.display = total === 0 ? 'block' : 'none';
+        if (noRes) noRes.style.display = (total > 0 && visible === 0) ? 'block' : 'none';
     });
     // Active filter count badge
     const countEl = document.getElementById('activeFilterCount');
@@ -718,6 +723,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     updatePriceSliderDisplay();
+    // Run once on load so a section with no listings shows its message
+    // straight away, instead of only after someone touches a filter.
+    applyFilters();
 
     // Wishlist hearts on cards
     document.querySelectorAll('.wishlist-heart').forEach(btn => {

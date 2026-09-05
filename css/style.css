@@ -2581,6 +2581,19 @@ html[dir="rtl"] .carousel-counter {
     line-height: 1.7;
 }
 
+/* Global `a { color: inherit; text-decoration: none }` would make this
+   call to action indistinguishable from the grey text around it. */
+.no-results-msg a {
+    color: var(--color-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+}
+
+.no-results-msg a:hover {
+    color: var(--color-primary);
+}
+
 /* ===== WISHLIST HEART ON CARDS ===== */
 .wishlist-heart {
     position: absolute;
