@@ -67,8 +67,13 @@ img {
     padding: 0 24px;
 }
 
+/* Vertical only. The property pages put this on the same element as
+   .container (class="container section-padding"), and the shorthand was
+   resetting .container's 24px side padding to 0 - which is why their text
+   ran edge to edge, as if the page were zoomed in. */
 .section-padding {
-    padding: 130px 0;
+    padding-top: 130px;
+    padding-bottom: 130px;
 }
 
 .bg-light {
@@ -1638,6 +1643,20 @@ html[dir="rtl"] .carousel-counter {
     .header-logo-group {
         gap: 10px;
     }
+    /* Logo pinned to one edge, language + menu grouped at the other with
+       the menu button outermost. row-reverse flips the DOM order (logo,
+       lang, menu) correctly in both writing directions: on the Hebrew
+       pages it reads logo | EN ☰ left-to-right, on the English ones
+       ☰ HE | logo. Scoped to headers that actually have a language pill,
+       so the property/estimation headers (logo + menu + social icons,
+       no pill) keep their current arrangement. */
+    .header-logo-group:has(.lang-pill-btn) {
+        flex: 1;
+        flex-direction: row-reverse;
+    }
+    .header-logo-group:has(.lang-pill-btn) .header-logo {
+        margin-inline-start: auto;
+    }
     /* index/en carry only the favourites button here, and the drawer has
        its own "My favourites" entry, so it's safe to drop entirely. */
     .header-actions {
@@ -1674,8 +1693,19 @@ html[dir="rtl"] .carousel-counter {
    3.5rem property titles) overflows and collides with anything pinned
    beside it at this width. Tablet (769-900px) keeps the larger sizes. */
 @media (max-width: 768px) {
+    /* 130px top + 130px bottom means 260px of empty space between two
+       sections - far too much on a phone. Enough to read as a section
+       break, no more. */
+    .section-padding {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
     .section-title {
         font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+    .section-title::after {
+        margin: 14px auto 20px;
     }
     .hero-title {
         font-size: 2.6rem;
@@ -1776,6 +1806,10 @@ html[dir="rtl"] .carousel-counter {
 /* Small phones (iPhone SE / mini). One more step down so long Hebrew
    headings don't wrap into four lines or run into the screen edge. */
 @media (max-width: 480px) {
+    .section-padding {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
     .section-title {
         font-size: 1.5rem;
     }
@@ -2423,7 +2457,14 @@ html[dir="rtl"] .carousel-counter {
 @media (max-width: 768px) {
     .section-filter-header {
         flex-direction: column;
-        gap: 14px;
+        gap: 8px;
+        /* The filter panel is collapsed (margin-bottom:0) until opened, so
+           without this the button sat directly on top of the first card. */
+        margin-bottom: 26px;
+    }
+    /* Beats .section-filter-header .section-title's own 20px. */
+    .section-filter-header .section-title {
+        margin-bottom: 0;
     }
     .filter-toggle-btn {
         position: static;
