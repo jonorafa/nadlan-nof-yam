@@ -10,8 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .header { background-color: rgba(252, 251, 249, 0.98) !important; border-bottom: 1px solid rgba(0,0,0,0.05); } 
-        .header .header-nav a, .header .lang-switch, .header .header-icon-link { color: var(--color-primary) !important; }
+        .header { background-color: rgba(252, 251, 249, 0.98) !important; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .header .header-nav a, .header .lang-switch, .header .header-icon-link, .header .wishlist-header-btn { color: var(--color-primary) !important; }
+        .header .menu-hamburger-btn span { background: var(--color-primary) !important; }
         .header-logo a { color: var(--color-primary) !important; }
         .header-logo img { filter: none !important; }
     </style>
@@ -21,10 +22,17 @@
     <!-- Header Navigation -->
     <header class="header" id="header">
         <div class="header-container">
-            <div class="header-logo">
-                <a href="index.html">
-                    <img src="images/site/logo.png" alt="נדל״ן נוף ים">
-                </a>
+            <div class="header-logo-group">
+                <div class="header-logo">
+                    <a href="en.html">
+                        <img src="images/site/logo.png" alt="Nadlan Nof Yam">
+                    </a>
+                </div>
+                <button class="menu-hamburger-btn" id="menuHamburgerBtn" aria-label="Main menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
             <nav class="header-nav">
                 <ul>
@@ -44,6 +52,14 @@
                 <a href="https://wa.me/972584008292" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="header-icon-link" id="headerWhatsappLink">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zM223.9 438.8c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
                 </a>
+                <a href="https://www.linkedin.com/in/nadlan-nof-yam-7b10b0433/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="header-icon-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M100.28 448H7.4V148.9h92.88zm-46.44-341C24.09 107 0 82.94 0 53.51a53.51 53.51 0 0 1 107 0c0 29.43-24.1 53.49-53.16 53.49zM447.9 448h-92.68V302.4c0-34.7-.7-79.3-48.29-79.3-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3z"/></svg>
+                </a>
+                <button class="wishlist-header-btn" id="wishlistHeaderBtn" aria-label="Favorites">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span>Favorites</span>
+                    <span class="wishlist-count-badge" id="wishlistCountBadge"></span>
+                </button>
             </div>
             </div>
         </div>
@@ -327,6 +343,78 @@
     </footer>
 
     <!-- Scripts -->
+
+    <!-- Wishlist Modal -->
+    <div class="wishlist-modal" id="wishlistModal" style="display:none;">
+        <div class="wishlist-modal-overlay" id="wishlistModalOverlay"></div>
+        <div class="wishlist-modal-box">
+            <div class="wishlist-modal-header">
+                <h3>My Favorites</h3>
+                <button class="wishlist-modal-close" id="wishlistModalClose">✕</button>
+            </div>
+            <div class="wishlist-modal-body" id="wishlistModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Main Menu Drawer -->
+    <div class="menu-drawer" id="menuDrawer" aria-hidden="true">
+        <div class="menu-drawer-overlay" id="menuDrawerOverlay"></div>
+        <aside class="menu-drawer-panel" role="dialog" aria-label="Main menu">
+            <div class="menu-drawer-header">
+                <div class="menu-drawer-logo">
+                    <img src="images/site/logo.png" alt="Nadlan Nof Yam">
+                </div>
+                <button class="menu-drawer-close" id="menuDrawerClose" aria-label="Close menu">✕</button>
+            </div>
+
+            <nav class="menu-drawer-nav">
+                <span class="menu-drawer-section-label">Navigation</span>
+                <ul>
+                    <li><a href="en.html#home" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 5l8 6.5M6 10v9h5v-5h2v5h5v-9"/></svg></span><span>Home</span></a></li>
+                    <li><a href="en.html#sale" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 12.5 18 4M15 6l2 2M17.5 3.5l1.5 1.5M10.2 15a3 3 0 1 1 0-6"/></svg></span><span>Properties for Sale</span></a></li>
+                    <li><a href="en.html#rent" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3h14v18M9 21v-4h6v4M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1"/></svg></span><span>Properties for Rent</span></a></li>
+                    <li><a href="en-estimation.html" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V3h16v18M4 21h16M8 8h2v2H8zM14 8h2v2h-2zM8 13h2v2H8zM14 13h2v2h-2z"/><path d="M20 12l-5-5"/></svg></span><span>Sell a Property</span></a></li>
+                    <li><a href="en.html#team" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8a3 3 0 1 1 0 6 3 3 0 0 1 0-6M16 6.5a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8M3 20v-.6c0-2.7 2.2-4.9 4.9-4.9h1.4c1.2 0 2.3.5 3.1 1.2M14.5 20v-1.1c0-1.8 1.3-3.3 3.1-3.5 1.9-.2 3.6 1.3 3.6 3.1V20"/></svg></span><span>Our Team</span></a></li>
+                    <li><a href="en.html#neighborhood" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.7-6-10.2A6 6 0 1 1 18 10.8C18 15.3 12 21 12 21M10 11a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/></svg></span><span>The Neighborhood</span></a></li>
+                    <li><a href="en.html#contact" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg></span><span>Contact</span></a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-drawer-section">
+                <span class="menu-drawer-section-label">Services</span>
+                <ul>
+                    <li><button class="menu-drawer-link menu-drawer-btn" id="menuOpenWishlist"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.8-9.8-9.4C.8 7.6 2.4 4.2 5.9 3.6c2-.4 3.9.6 5.1 2.3 1.2-1.7 3.1-2.7 5.1-2.3 3.5.6 5.1 4 3.7 7.5-2.3 4.6-9.8 9.4-9.8 9.4z"/></svg></span><span>My Favorites</span><span class="menu-drawer-badge" id="menuDrawerWishlistCount"></span></button></li>
+                    <li><a href="en.html#mortgage" class="menu-drawer-link"><span class="menu-link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#152028" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v11H3zM10 9.5a3 3 0 1 0 4 4.6 3 3 0 0 0-4-4.6M6 9v1M18 14v1"/></svg></span><span>Mortgage Calculator</span></a></li>
+                </ul>
+            </div>
+
+            <div class="menu-drawer-contact">
+                <span class="menu-drawer-section-label">Direct Contact</span>
+                <a href="tel:+972584008292" class="menu-contact-item">
+                    <span class="menu-link-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg></span>
+                    <div>
+                        <strong>Sophia</strong>
+                        <span style="display:block;">058-400-8292</span>
+                    </div>
+                </a>
+                <a href="tel:+972502175633" class="menu-contact-item">
+                    <span class="menu-link-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg></span>
+                    <div>
+                        <strong>Sigal</strong>
+                        <span style="display:block;">050-217-5633</span>
+                    </div>
+                </a>
+                <a href="mailto:sophianadlan@gmail.com" class="menu-contact-item">
+                    <span class="menu-link-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                    <div>
+                        <strong>Email</strong>
+                        <span>sophianadlan@gmail.com</span>
+                    </div>
+                </a>
+            </div>
+        </aside>
+    </div>
+
     <script src="js/script.js"></script>
 </body>
 </html>
