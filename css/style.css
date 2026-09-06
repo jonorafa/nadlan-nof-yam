@@ -3610,6 +3610,20 @@ a.wishlist-item:hover {
     font-weight: 600;
 }
 
+/* Line icons replacing the emoji that used to lead these labels - emoji
+   render as Apple's own glyphs on iOS regardless of the site's design,
+   so they looked out of place next to everything else on the page. */
+.estim-field-icon {
+    display: inline-flex;
+    vertical-align: -3px;
+    margin-inline-end: 6px;
+}
+
+.estim-field-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
 .estim-required-star {
     color: #d3273e;
 }
