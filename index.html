@@ -74,6 +74,10 @@
            CDN. Not loading it - the form uses the site's body font instead. */
         .sib-form {
             font-family: var(--font-body);
+            /* sib-styles.css sets background-attachment:fixed. iOS Safari
+               renders that unreliably (the image detaches from the section
+               and can appear zoomed), and devtools don't reproduce it. */
+            background-attachment: scroll;
         }
 
         /* sib-styles.css colours the placeholder of every input on the page,
@@ -943,7 +947,7 @@
 
     <!-- Brevo alert form -->
     <script>
-      window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
+      window.REQUIRED_CODE_ERROR_MESSAGE = 'אנא בחרו קידומת מדינה';
       window.LOCALE = 'he';
 
       window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = ".הפרטים שהוזנו אינם תקינים. אנא בדקו את השדה ונסו שוב";
@@ -954,16 +958,16 @@
 
       window.INVALID_NUMBER = ".הפרטים שהוזנו אינם תקינים. אנא בדקו את השדה ונסו שוב";
 
-      window.INVALID_DATE = "Veuillez saisir une date valide";
+      window.INVALID_DATE = "אנא הזינו תאריך תקין";
 
-      window.REQUIRED_MULTISELECT_MESSAGE = 'Veuillez choisir au moins une option';
+      window.REQUIRED_MULTISELECT_MESSAGE = 'אנא בחרו לפחות אפשרות אחת';
 
       window.translation = {
         common: {
-          selectedList: '{quantity} liste sélectionnée',
-          selectedLists: '{quantity} listes sélectionnées',
-          selectedOption: '{quantity} sélectionné',
-          selectedOptions: '{quantity} sélectionnés',
+          selectedList: '{quantity} רשימה נבחרה',
+          selectedLists: '{quantity} רשימות נבחרו',
+          selectedOption: '{quantity} נבחר',
+          selectedOptions: '{quantity} נבחרו',
         }
       };
 
