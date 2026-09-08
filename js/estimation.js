@@ -410,3 +410,51 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', requestUpdate);
     updateActiveStep();
 });
+
+// "Contact us" alert form (estimation.html / en-estimation.html). No backend on this
+// static site, so - same pattern as the homepage's contact form in script.js - the
+// message is handed straight to WhatsApp rather than submitted anywhere.
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('alertContactForm');
+    if (!form) return;
+
+    const WHATSAPP_NUMBER = '972584008292';
+    const isEn = (document.documentElement.lang || 'he').toLowerCase().startsWith('en');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const val = id => (document.getElementById(id)?.value || '').trim();
+        const name = val('alertName');
+        const phone = val('alertPhone');
+        const email = val('alertEmail');
+        const address = val('alertAddress');
+        const availability = val('alertAvailability');
+        const message = val('alertMessage');
+
+        if (!name || !phone || !message) return; // native "required" should already block this
+
+        const lines = isEn
+            ? [
+                `Hello, my name is ${name}.`,
+                `Phone: ${phone}.`,
+                email && `Email: ${email}.`,
+                address && `Property address: ${address}.`,
+                availability && `Preferred contact time: ${availability}.`,
+                `Message: ${message}`
+            ]
+            : [
+                `שלום, שמי ${name}.`,
+                `טלפון: ${phone}.`,
+                email && `אימייל: ${email}.`,
+                address && `כתובת הנכס: ${address}.`,
+                availability && `זמינות מועדפת: ${availability}.`,
+                `הודעה: ${message}`
+            ];
+
+        const text = lines.filter(Boolean).join('\n');
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        form.reset();
+    });
+});
