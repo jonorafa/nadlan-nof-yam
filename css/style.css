@@ -137,15 +137,18 @@ img {
 
 .header-container {
     display: grid;
-    /* Equal 1fr side columns keep the middle (nav) column truly centered
-       on the header regardless of whether the side column is a single
-       button (home) or a full row of social icons (property/estimation
-       pages) - each 1fr track still grows to fit its own content, it
-       just never steals space from the other side unevenly. minmax(...)
-       floors each side column at its own natural width so a plain 1fr
-       can't shrink the logo/hamburger or the icon row below their real
-       size and force them to spill into the nav column. */
-    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    /* Side columns size to their own content and the nav takes what's
+       left, centred inside it - so its clearance from the logo/hamburger
+       block and from the actions block is equal by construction, at every
+       width and in both header states. Centring the nav on the *header*
+       instead (equal 1fr side tracks) looks balanced only when both side
+       blocks happen to be the same width: here the logo group is ~300px
+       and the favourites button ~45px, which left the nav pinned against
+       the hamburger on one side with a large gap on the other. */
+    grid-template-columns: auto 1fr auto;
+    /* Minimum breathing room around the nav, matching the gap between the
+       nav's own links so the whole row reads as evenly spaced. */
+    column-gap: 34px;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -236,25 +239,11 @@ img {
 
 .header-nav {
     display: flex;
+    /* The nav's grid column is the flexible one (see .header-container),
+       so centring here is what splits the leftover space evenly between
+       the hamburger side and the actions side. */
     justify-content: center;
-    /* .header-container has no column-gap, so the nav's grid column sits
-       flush against the logo/hamburger column with zero space between them
-       - most visible unscrolled, where the logo is at its full 120px and
-       "דף הבית"/"Home" ends up touching the hamburger button. Logo sits at
-       the physical right on both index.html (native RTL) and en.html
-       (mirrored via direction:rtl on .header-container) - a plain physical
-       margin-right is used rather than a logical property because
-       .header-nav's own `direction` differs between the two pages
-       (en.html resets it back to ltr on its children), which would flip
-       which physical side margin-inline-* resolves to. */
-    margin-right: 28px;
 }
-
-/* .header-container is a 1fr/auto/1fr grid, so the nav's column is
-   already centered on the header itself - not on the space between the
-   logo and actions blocks - meaning it sits in the exact same spot on
-   every page, whether the actions block is a single button (home) or a
-   full row of social icons (property/estimation pages). */
 
 .header-nav ul {
     display: flex;
