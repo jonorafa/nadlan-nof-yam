@@ -97,18 +97,6 @@
             coords: [32.1169, 34.7892]
         },
         {
-            title: 'יובל נאמן 3',
-            location: 'רמת אביב',
-            price: '₪ 12,300,000',
-            status: 'sold',
-            badge: 'נמכר',
-            image: 'images/yuval/yuval-cover.jpg',
-            link: 'property-yuval.html',
-            // Prof Yuval Ne'eman St 3 - same building as the for-sale listing above
-            // (different unit) - slightly offset so both pins are clickable
-            coords: [32.1129, 34.7867]
-        },
-        {
             title: 'רחוב אמיר גלבוע 7',
             location: 'רמת אביב החדשה',
             price: '₪ 8,800,000',

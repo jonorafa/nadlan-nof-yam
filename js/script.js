@@ -406,7 +406,6 @@ const PROPERTIES_DATA = [
     { id: 'gimel',     title: 'פנטהאוז חדש לגמרי',                        titleEn: 'Brand New Penthouse',                        location: 'רמת אביב גימל',     locationEn: 'Ramat Aviv Gimel',     price: '₪ 13,500,000',     image: 'images/gimel/gimel-8.jpg',              link: 'property-gimel.html' },
     { id: 'penthouse', title: 'מיני פנטהאוז בגוש הגדול / נופי ים',       titleEn: 'Mini Penthouse | Sea Views',                  location: 'רמת אביב החדשה',    locationEn: 'New Ramat Aviv',       price: '₪ 8,750,000',      image: 'images/penthouse/penthouse1.jpg',       link: 'property-penthouse.html' },
     { id: 'chefetz',   title: 'ישה חפץ 16',                                titleEn: 'Yisha Chefetz 16',                            location: 'רמת אביב החדשה',    locationEn: 'New Ramat Aviv',       price: '₪ 10,000,000',     image: 'images/chefetz/chefetz-cover.jpg',      link: 'property-chefetz.html' },
-    { id: 'yuval',     title: 'יובל נאמן 3',                               titleEn: 'Yuval Neeman 3',                              location: 'רמת אביב',          locationEn: 'Ramat Aviv',           price: '₪ 12,300,000',     image: 'images/yuval/yuval-cover.jpg',          link: 'property-yuval.html' },
 ];
 
 // ===== WISHLIST (localStorage) =====
