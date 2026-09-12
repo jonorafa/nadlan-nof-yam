@@ -36,8 +36,21 @@ function addPropertyFeatureIcons() {
     });
 }
 
+// Room-count badge on each card's photo, same data-driven approach as the
+// feature icons above - reads data-prop-rooms so it applies to every card
+// (main grids + related-property cards) without hand-editing markup.
+function addPropertyRoomBadges() {
+    document.querySelectorAll('.property-link[data-prop-rooms]').forEach(link => {
+        const image = link.querySelector('.property-image');
+        const rooms = link.dataset.propRooms;
+        if (!image || !rooms || image.querySelector('.property-rooms-badge')) return;
+        image.insertAdjacentHTML('beforeend', `<span class="property-rooms-badge">${rooms}</span>`);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     addPropertyFeatureIcons();
+    addPropertyRoomBadges();
 
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
