@@ -40,11 +40,13 @@ function addPropertyFeatureIcons() {
 // feature icons above - reads data-prop-rooms so it applies to every card
 // (main grids + related-property cards) without hand-editing markup.
 function addPropertyRoomBadges() {
+    const isEn = (document.documentElement.lang || 'he').toLowerCase().startsWith('en');
+    const label = isEn ? 'Rooms' : 'חדרים';
     document.querySelectorAll('.property-link[data-prop-rooms]').forEach(link => {
         const image = link.querySelector('.property-image');
         const rooms = link.dataset.propRooms;
         if (!image || !rooms || image.querySelector('.property-rooms-badge')) return;
-        image.insertAdjacentHTML('beforeend', `<span class="property-rooms-badge">${rooms}</span>`);
+        image.insertAdjacentHTML('beforeend', `<span class="property-rooms-badge">${rooms} ${label}</span>`);
     });
 }
 
