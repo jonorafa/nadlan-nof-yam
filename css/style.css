@@ -292,17 +292,25 @@ img {
 
 /* HERO SECTION */
 .hero {
-    height: 100vh; /* fallback for browsers without dvh support */
-    height: 100dvh; /* tracks Safari iOS's address bar instead of overflowing under it */
-    min-height: 600px;
+    /* Was 100vh/100dvh (full screen) - on a wide, short-ish browser
+       window that pushed .hero-search (anchored to the hero's own
+       bottom edge) close enough to the fold that only a sliver of it
+       showed without scrolling. A capped height keeps the whole hero -
+       title, subtitle and search bar - inside view on load regardless
+       of window size, while min()'s dvh branch still shrinks it on a
+       short viewport instead of overflowing it. */
+    height: min(680px, 92vh);
+    height: min(680px, 92dvh);
+    min-height: 520px;
     background-image: url('../images/gimel/gimel-8.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     text-align: center;
+    padding-top: 150px;
 }
 
 .hero-overlay {
@@ -1931,6 +1939,11 @@ html[dir="rtl"] .carousel-counter {
     }
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+    /* The compact mobile header (see above) is much shorter than the
+       desktop one the 150px was sized for. */
+    .hero {
+        padding-top: 90px;
     }
 }
 
