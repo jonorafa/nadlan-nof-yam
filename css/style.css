@@ -365,25 +365,28 @@ img {
    its own stacking context so it paints above #sale, which otherwise
    would - being later in the DOM - paint over the overlapping part. */
 .hero-search {
-    /* Centered on the hero itself (not pinned to its bottom edge, which
-       read as an afterthought stuck to the seam with #sale) - roughly
-       in the open photo area below the title/subtitle. */
+    /* Centered in the lower third of the image, with enough breathing room
+       to keep the title and the search experience visually distinct. */
     position: absolute;
     z-index: 20;
-    top: 70%;
+    top: 72%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(1100px, calc(100% - 32px));
-    background: rgba(255,255,255,0.98);
-    border-radius: 6px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    width: min(1120px, calc(100% - 48px));
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+    box-shadow: 0 24px 60px rgba(20, 28, 32, 0.22);
+    backdrop-filter: blur(14px);
     text-align: right;
+    direction: rtl;
 }
 
 .hero-search-tabs {
     display: flex;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 0 28px;
+    border-bottom: 1px solid rgba(21, 32, 40, 0.1);
+    padding: 0 30px;
+    background: rgba(255, 255, 255, 0.22);
 }
 
 .hero-search-tab {
