@@ -1595,9 +1595,6 @@ html[dir="rtl"] .carousel-arrow.next {
     height: 24px;
     fill: #fff;
 }
-html[dir="rtl"] .carousel-arrow svg {
-    transform: scaleX(-1);
-}
 
 .carousel-counter {
     position: absolute;
