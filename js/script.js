@@ -578,7 +578,7 @@ function closeWishlistModal() {
 
 // ===== FILTER SYSTEM =====
 const BUDGET_MAX = 20000000;
-const filterState = { type: 'all', rooms: 'all', surface: 'all', budgetMin: 0, budgetMax: BUDGET_MAX };
+const filterState = { type: 'all', rooms: 'all', surface: 'all', location: 'all', budgetMin: 0, budgetMax: BUDGET_MAX };
 
 function formatPriceShort(v) {
     if (v === 0) return '0';
@@ -611,15 +611,19 @@ function updatePriceSliderDisplay() {
 
 function applyFilters() {
     document.querySelectorAll('.property-link').forEach(card => {
-        const type    = card.dataset.propType;
-        const price   = parseInt(card.dataset.propPrice)   || 0;
-        const rooms   = parseInt(card.dataset.propRooms)   || 0;
-        const surface = parseInt(card.dataset.propSurface) || 0;
+        const type     = card.dataset.propType;
+        const price    = parseInt(card.dataset.propPrice)   || 0;
+        const rooms    = parseInt(card.dataset.propRooms)   || 0;
+        const surface  = parseInt(card.dataset.propSurface) || 0;
+        const location = card.dataset.propLocation;
         let show = true;
 
         if (filterState.type !== 'all') {
             if (filterState.type === 'sale' && type !== 'sale' && type !== 'sold') show = false;
             if (filterState.type === 'rent' && type !== 'rent') show = false;
+        }
+        if (show && filterState.location !== 'all' && location) {
+            if (location !== filterState.location) show = false;
         }
         if (show && filterState.rooms !== 'all') {
             if (filterState.rooms === '1-3' && rooms > 3) show = false;
@@ -657,6 +661,7 @@ function applyFilters() {
             filterState.type !== 'all',
             filterState.rooms !== 'all',
             filterState.surface !== 'all',
+            filterState.location !== 'all',
             filterState.budgetMin > 0 || filterState.budgetMax < BUDGET_MAX
         ].filter(Boolean).length;
         countEl.textContent = n;
@@ -709,7 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // Filter reset
     document.getElementById('filterResetBtn')?.addEventListener('click', () => {
-        filterState.type = 'all'; filterState.rooms = 'all'; filterState.surface = 'all';
+        filterState.type = 'all'; filterState.rooms = 'all'; filterState.surface = 'all'; filterState.location = 'all';
         filterState.budgetMin = 0; filterState.budgetMax = BUDGET_MAX;
         document.querySelectorAll('.filter-chip').forEach(chip => {
             chip.classList.toggle('active', chip.dataset.value === 'all');
@@ -740,6 +745,103 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run once on load so a section with no listings shows its message
     // straight away, instead of only after someone touches a filter.
     applyFilters();
+
+    // ===== HERO SEARCH =====
+    // Custom dropdowns instead of native <select> - a native select's own
+    // OS picker sheet (especially on mobile) looks like generic browser
+    // chrome, not part of the site's own design.
+    const heroSearchState = { tab: 'sale', location: 'all', price: 'all', rooms: 'all' };
+
+    document.querySelectorAll('.hero-search-field[data-hero-dd]').forEach(field => {
+        const trigger = field.querySelector('.hero-search-dd-trigger');
+        const text = field.querySelector('[data-hero-dd-text]');
+        const key = field.dataset.heroDd;
+        if (!trigger) return;
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const wasOpen = field.classList.contains('open');
+            document.querySelectorAll('.hero-search-field.open').forEach(f => {
+                f.classList.remove('open');
+                f.querySelector('.hero-search-dd-trigger')?.setAttribute('aria-expanded', 'false');
+            });
+            if (!wasOpen) {
+                field.classList.add('open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        field.querySelectorAll('.hero-search-dd-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                field.querySelectorAll('.hero-search-dd-option').forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                heroSearchState[key] = option.dataset.value;
+                if (text) text.textContent = option.textContent;
+                field.classList.remove('open');
+                trigger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    });
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.hero-search-field.open').forEach(f => {
+            f.classList.remove('open');
+            f.querySelector('.hero-search-dd-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Tabs: "קנייה"/"השכרה" pick the filter type and the section the search
+    // scrolls to; "מכירה" is a plain link to estimation.html, not a tab.
+    document.querySelectorAll('.hero-search-tab[data-hero-tab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.hero-search-tab[data-hero-tab]').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            heroSearchState.tab = tab.dataset.heroTab;
+        });
+    });
+
+    document.getElementById('heroSearchBtn')?.addEventListener('click', () => {
+        // Type + target section, from the active tab.
+        filterState.type = heroSearchState.tab;
+        document.querySelectorAll('.filter-chip[data-filter="type"]').forEach(c => {
+            c.classList.toggle('active', c.dataset.value === heroSearchState.tab);
+        });
+
+        // Rooms - same values as the existing chips, so just mirror them.
+        filterState.rooms = heroSearchState.rooms;
+        document.querySelectorAll('.filter-chip[data-filter="rooms"]').forEach(c => {
+            c.classList.toggle('active', c.dataset.value === heroSearchState.rooms);
+        });
+
+        // Location - "למד החדשה" and "גוש הגדול" are the same broader area
+        // as far as the listings' own data goes (none of them are tagged
+        // more precisely than that), so both map to the same value; only
+        // Ramat Aviv Gimel is a real, distinct one.
+        filterState.location = (heroSearchState.location === 'lamed' || heroSearchState.location === 'gush')
+            ? 'gush-lamed'
+            : heroSearchState.location;
+
+        // Price - reuse the existing slider's inputs and display so the
+        // filter panel stays in sync if someone opens it afterward.
+        const max = heroSearchState.price === 'all' ? BUDGET_MAX : parseInt(heroSearchState.price);
+        filterState.budgetMin = 0;
+        filterState.budgetMax = max;
+        const rangeMinEl = document.getElementById('rangeMin');
+        const rangeMaxEl = document.getElementById('rangeMax');
+        if (rangeMinEl) rangeMinEl.value = 0;
+        if (rangeMaxEl) rangeMaxEl.value = max;
+        updatePriceSliderDisplay();
+
+        applyFilters();
+
+        const targetEl = document.getElementById(heroSearchState.tab);
+        if (targetEl) {
+            const headerHeight = document.querySelector('.header').offsetHeight;
+            const offsetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+    });
 
     // Wishlist hearts on cards
     document.querySelectorAll('.wishlist-heart').forEach(btn => {
