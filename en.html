@@ -106,6 +106,14 @@
             color: revert;
         }
     </style>
+
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -152,10 +160,65 @@
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-overlay"></div>
+            <div class="hero-flex-spacer"></div>
             <div class="hero-content">
                 <h1 class="hero-title">Your New Home by the Sea</h1>
                 <p class="hero-subtitle">A real estate agency specializing in Ramat Aviv and the surrounding area.</p>
             </div>
+            <div class="hero-search">
+                <div class="hero-search-tabs">
+                    <button type="button" class="hero-search-tab active" data-hero-tab="sale">Buy</button>
+                    <button type="button" class="hero-search-tab" data-hero-tab="rent">Rent</button>
+                    <a href="en-estimation.html" class="hero-search-tab hero-search-tab--link">Sell</a>
+                </div>
+                <div class="hero-search-fields">
+                    <div class="hero-search-field" data-hero-dd="location">
+                        <button type="button" class="hero-search-dd-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <svg class="hero-search-dd-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.2 7-12a7 7 0 0 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                            <span class="hero-search-dd-text" data-hero-dd-text>Where?</span>
+                            <svg class="hero-search-dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="hero-search-dd-menu" role="listbox">
+                            <button type="button" class="hero-search-dd-option active" data-value="all" role="option">All</button>
+                            <button type="button" class="hero-search-dd-option" data-value="lamed" role="option">Lamed HaChadasha</button>
+                            <button type="button" class="hero-search-dd-option" data-value="gush" role="option">Gush HaGadol</button>
+                            <button type="button" class="hero-search-dd-option" data-value="gimel" role="option">Ramat Aviv Gimel</button>
+                        </div>
+                    </div>
+
+                    <div class="hero-search-field" data-hero-dd="price">
+                        <button type="button" class="hero-search-dd-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <svg class="hero-search-dd-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9c0-1.1 1-2 2.5-2s2.5.9 2.5 2-1 1.5-2.5 2-2.5.9-2.5 2 1 2 2.5 2 2.5-.9 2.5-2"/></svg>
+                            <span class="hero-search-dd-text" data-hero-dd-text>Max Price</span>
+                            <svg class="hero-search-dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="hero-search-dd-menu" role="listbox">
+                            <button type="button" class="hero-search-dd-option" data-value="3000000" role="option">Up to $3M</button>
+                            <button type="button" class="hero-search-dd-option" data-value="5000000" role="option">Up to $5M</button>
+                            <button type="button" class="hero-search-dd-option" data-value="8000000" role="option">Up to $8M</button>
+                            <button type="button" class="hero-search-dd-option" data-value="12000000" role="option">Up to $12M</button>
+                            <button type="button" class="hero-search-dd-option active" data-value="all" role="option">No limit</button>
+                        </div>
+                    </div>
+
+                    <div class="hero-search-field" data-hero-dd="rooms">
+                        <button type="button" class="hero-search-dd-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <svg class="hero-search-dd-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/></svg>
+                            <span class="hero-search-dd-text" data-hero-dd-text>Rooms</span>
+                            <svg class="hero-search-dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="hero-search-dd-menu" role="listbox">
+                            <button type="button" class="hero-search-dd-option active" data-value="all" role="option">All</button>
+                            <button type="button" class="hero-search-dd-option" data-value="1-3" role="option">1–3</button>
+                            <button type="button" class="hero-search-dd-option" data-value="4-5" role="option">4–5</button>
+                            <button type="button" class="hero-search-dd-option" data-value="6+" role="option">6+</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="hero-search-btn" id="heroSearchBtn">Search</button>
+                </div>
+            </div>
+            <div class="hero-flex-spacer"></div>
         </section>
 
         <!-- Properties For Sale Section -->
