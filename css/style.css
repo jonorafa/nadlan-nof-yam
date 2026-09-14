@@ -310,7 +310,7 @@ img {
     align-items: flex-start;
     justify-content: center;
     text-align: center;
-    padding-top: 150px;
+    padding-top: 190px;
 }
 
 .hero-overlay {
@@ -331,7 +331,7 @@ img {
 
 .hero-title {
     color: #ffffff;
-    font-size: 4.5rem;
+    font-size: 3.6rem;
     margin-bottom: 20px;
     line-height: 1.1;
     font-weight: 300;
@@ -354,11 +354,14 @@ img {
    its own stacking context so it paints above #sale, which otherwise
    would - being later in the DOM - paint over the overlapping part. */
 .hero-search {
+    /* Centered on the hero itself (not pinned to its bottom edge, which
+       read as an afterthought stuck to the seam with #sale) - roughly
+       in the open photo area below the title/subtitle. */
     position: absolute;
     z-index: 20;
-    bottom: -40px;
+    top: 60%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     width: min(1100px, calc(100% - 32px));
     background: rgba(255,255,255,0.98);
     border-radius: 6px;
@@ -1943,7 +1946,7 @@ html[dir="rtl"] .carousel-counter {
     /* The compact mobile header (see above) is much shorter than the
        desktop one the 150px was sized for. */
     .hero {
-        padding-top: 90px;
+        padding-top: 110px;
     }
 }
 
