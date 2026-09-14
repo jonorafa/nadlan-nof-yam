@@ -370,7 +370,7 @@ img {
        in the open photo area below the title/subtitle. */
     position: absolute;
     z-index: 20;
-    top: 60%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(1100px, calc(100% - 32px));
